@@ -199,6 +199,105 @@
             
               
                 
+                <a class="post-title-link" href="/2015/12/13/领域语言一二三/" itemprop="url">
+                  领域特定语言一二三
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-12-13T00:00:00+08:00" content="2015-12-13">
+              2015-12-13
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <blockquote>
+<p>语言的界限就是一个人的世界的界限。 ——维特根斯坦</p>
+</blockquote>
+<h3 id="领域语言是个啥">领域语言是个啥</h3><p>领域语言之前只是听过，比如sql就是典型的领域语言。</p>
+<p>前一段时间去听openrestyCon，章亦春讲到自己领域语言方面的应用：产品经理有时会提出某些特定需求或问题，描述的逻辑非常清晰，限定也非常明确。在他看来，这种文档就是对需求最好的实现。他就发明出专门针对这个文档的语言，并用它来表示这个文档，相当于用自己定义的语言把产品经理的需求实现了一遍。然后，再利用perl脚本，根据自定义语言与实际的计算机语言（比如c、lua等）的映射规则，生成了最终的实现结果。当时听到这个，非常好奇，感觉很有意思，但是没想清楚到底是怎么回事。最近在读《The pragmatic programmer》这本书，恰好看到领域语言这一块儿，就试着多了解一下。</p>
+<p>计算机语言会影响我们思考问题的方式、交流的方式。</p>
+<p>通常情况下，一个需求或问题出现时，我们会在理解需求的基础上，思考相应的解决方案，接着就会涉及到实现细节，会想到要使用哪种计算机语言，会考虑要选定的语言的特性和局限性。大概的顺序应该是这样的：</p>
+<pre><code><span class="number">1.</span> 问题/需求 -&gt; 
+<span class="number">2.</span> 解决方案 &lt;-&gt; 语言选择、细节实现
+</code></pre><p>在这里，实现的语言的特性、局限性及实现细节会反过来影响我们的解决方案。这可能会导致我们在解决方案上过早的妥协。</p>
+<p>相反，领域语言相比需求本身更高一层，它是从问题中提炼出来的描述规范。有了领域语言之后，我们会抛开实现的细节，把注意力集中到问题的解决方案上。它解决问题的顺序应该是这样的：</p>
+<pre><code><span class="number">1.</span> 问题/需求 -&gt; 
+<span class="number">2.</span> 解决方案 -&gt; 
+<span class="number">3.</span> 领域语言 -&gt; 
+<span class="number">4.</span> 领域语言与具体实现语言之间的映射 -&gt;
+<span class="number">5.</span> 实现的语言及实现细节。
+</code></pre><p>最开始，这种领域语言不一定是可执行的，它只是被用来捕捉用户需求的一种方式、规范。当然也可以更进一步去实现它。事实上，对最终的实现语言的选择和权衡并没有被消除，而是被后置。领域语言充当了解决方案和最总的实现语言之间的桥梁，起到了一个解耦的作用。</p>
+<p>总之，无论领域语言的简单还是复杂，都应该考虑让我们的项目靠近问题领域。通过在更高的抽象层面上编码，获得解决领域问题的自由，暂时忽略琐碎的实现细节，避免解决领域问题时被过早的影响。</p>
+<h3 id="领域语言的实现举例">领域语言的实现举例</h3><p>TODO</p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/11/24/用hexo和github搭建的个人页/" itemprop="url">
                   用hexo和github搭建个人页
                 </a>
@@ -493,7 +592,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -507,7 +606,7 @@
 
           <div class="site-state-item site-state-tags">
             
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">9</span>
               <span class="site-state-item-name">标签</span>
               
           </div>
