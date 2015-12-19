@@ -167,6 +167,285 @@
 
     
     
+      
+      
+        
+        
+        
+      
+
+      
+    
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/12/19/gdb调试备忘/" itemprop="url">
+                  gdb调试备忘
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-12-19T08:35:52+08:00" content="2015-12-19">
+              2015-12-19
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p>gdb下调试程序：<br>gcc -c -g painter_parser.c 生成painter_parser.o文件<br>gcc -o painter_parser.exe painter_parser.o 生成painter_parser.exe文件<br>gdb painter_parser 进入gdb调试环境</p>
+<pre><code><span class="number">1.</span> l 浏览代码
+<span class="number">2.</span> 回车 向下继续浏览代码
+<span class="number">3.</span> l <span class="number">1</span> 回到第一行
+<span class="number">4.</span> <span class="keyword">break</span> <span class="number">23</span> 在第<span class="number">23</span>行设置断点
+<span class="number">5.</span> r 运行
+<span class="number">6.</span> p 变量  输出变量值
+<span class="number">7.</span> bt 打印当前堆栈所有信息
+<span class="number">8.</span> n 继续运行下一行代码
+<span class="number">9.</span> s 进入到函数中
+<span class="number">10.</span> finish 跳出函数
+<span class="number">11.</span> c 跳到下一个断点
+<span class="number">12.</span> q 退出
+</code></pre>
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/12/19/mysql连接数问题/" itemprop="url">
+                  mysql连接数问题
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-12-19T08:35:52+08:00" content="2015-12-19">
+              2015-12-19
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p>最近在跑一个shell脚本，大概的流程是：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">从hive拉取数据到一个文件</span><br><span class="line">把步骤<span class="number">1</span>的文件切分成<span class="number">100</span>个子文件</span><br><span class="line">启动<span class="number">300</span>个子进程，传入子文件做参数，每个进程都会调用一个后端的php脚本，来处理子文件。</span><br><span class="line">处理过程比较复杂，会涉及到多个读、写操作</span><br></pre></td></tr></table></figure></p>
+<p>开始运行后，日志里出现部分sql执行失败的情况。出错的sql既有写操作语句，也有读操作语句。<br>首先怀疑是不是sql本身的问题。把sql拿出来在mysql client上执行都是可以的。排除这种了可能性，那就只能是调用mysql时出现错误了。mysql进程还在，手动执行sql正常。由于后端php脚本操作数据库的lib封装时log没有输出错误码，所以从日志中也不能直接看出来是什么错误。再去看下mysql的状态。</p>
+<p>先看下是否有慢查询导致mysql响应不过来？ 没有。<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">mysql&gt; show status like '%slow%';</span><br><span class="line">+---------------------+-------+</span></span><br><span class="line"><span class="header">| Variable_name | Value |</span><br><span class="line">+---------------------+-------+</span></span><br><span class="line">| Slow<span class="emphasis">_launch_</span>threads | 0 |</span><br><span class="line"><span class="header">| Slow_queries | 0 |</span><br><span class="line">+---------------------+-------+</span></span><br></pre></td></tr></table></figure></p>
+<p>再看下是否因为锁表导致不能响应？<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Table_locks_waited为<span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<p>再看是否是连接的问题？<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show status like '%connect%';</span><br><span class="line">+-----------------------------------------------+-------+</span><br><span class="line">|<span class="string"> Variable_name </span>|<span class="string"> Value </span>|</span><br><span class="line">+-----------------------------------------------+-------+</span><br><span class="line">|<span class="string"> Aborted_connects </span>|<span class="string"> 21 </span>|</span><br><span class="line">|<span class="string"> Connection_errors_accept </span>|<span class="string"> 0 </span>|</span><br><span class="line">|<span class="string"> Connection_errors_internal </span>|<span class="string"> 0 </span>|</span><br><span class="line">|<span class="string"> Connection_errors_max_connections </span>|<span class="string"> 608 </span>|</span><br><span class="line">|<span class="string"> Connection_errors_peer_address </span>|<span class="string"> 0 </span>|</span><br><span class="line">|<span class="string"> Connection_errors_select </span>|<span class="string"> 0 </span>|</span><br><span class="line">|<span class="string"> Connection_errors_tcpwrap </span>|<span class="string"> 0 </span>|</span><br><span class="line">|<span class="string"> Connections </span>|<span class="string"> 7277 </span>|</span><br><span class="line">|<span class="string"> Max_used_connections </span>|<span class="string"> 150 </span>|</span><br><span class="line">|<span class="string"> Performance_schema_session_connect_attrs_lost </span>|<span class="string"> 0 </span>|</span><br><span class="line">|<span class="string"> Ssl_client_connects </span>|<span class="string"> 0 </span>|</span><br><span class="line">|<span class="string"> Ssl_connect_renegotiates </span>|<span class="string"> 0 </span>|</span><br><span class="line">|<span class="string"> Ssl_finished_connects </span>|<span class="string"> 0 </span>|</span><br></pre></td></tr></table></figure></p>
+<p>这里面的Max_used_connections表示mysql收到的最大连接数。再看mysql配置中支持的最大连接数是多少？151<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like '%connect%';</span><br><span class="line">+-----------------------------------------------+-------------------+</span><br><span class="line">|<span class="string"> Variable_name </span>|<span class="string"> Value </span>|</span><br><span class="line">+-----------------------------------------------+-------------------+</span><br><span class="line">|<span class="string"> character_set_connection </span>|<span class="string"> latin1 </span>|</span><br><span class="line">|<span class="string"> collation_connection </span>|<span class="string"> latin1_swedish_ci </span>|</span><br><span class="line">|<span class="string"> connect_timeout </span>|<span class="string"> 10 </span>|</span><br><span class="line">|<span class="string"> disconnect_on_expired_password </span>|<span class="string"> ON </span>|</span><br><span class="line">|<span class="string"> init_connect </span>|<span class="string"> </span>|</span><br><span class="line">|<span class="string"> max_connect_errors </span>|<span class="string"> 100 </span>|</span><br><span class="line">|<span class="string"> max_connections </span>|<span class="string"> 151 </span>|</span><br><span class="line">|<span class="string"> max_user_connections </span>|<span class="string"> 0 </span>|</span><br><span class="line">|<span class="string"> performance_schema_session_connect_attrs_size </span>|<span class="string"> 512 </span>|</span><br><span class="line">+-----------------------------------------------+-------------------+</span><br></pre></td></tr></table></figure></p>
+<p>最大连接数是151. 操作mysql的进程数300，超过了mysql的最大连接数而导致部分连接请求失败。调整一下max_connection参数试一下。（这里也可以修改mysql的my.cnf配置文件重启后生效）<br>mysql&gt; set GLOBAL max_connections=1000;</p>
+<p>重新运行批处理脚本，日志中错误消失。</p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/12/13/hello-world/" itemprop="url">
+                  Hello World
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-12-13T00:34:30+08:00" content="2015-12-13">
+              2015-12-13
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
 
     
       
@@ -379,95 +658,6 @@
             
               
                 
-                <a class="post-title-link" href="/2015/11/23/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2015-11-23T22:34:31+08:00" content="2015-11-23">
-              2015-11-23
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-              <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-            
-          </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2015/01/09/读季羡林之一二三/" itemprop="url">
                   读季羡林之一二三
                 </a>
@@ -583,7 +773,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">6</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -597,7 +787,7 @@
 
           <div class="site-state-item site-state-tags">
             
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">标签</span>
               
           </div>
