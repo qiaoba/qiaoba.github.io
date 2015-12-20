@@ -167,96 +167,6 @@
 
     
     
-      
-      
-        
-        
-        
-      
-
-      
-    
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/12/19/gdb调试备忘/" itemprop="url">
-                  gdb调试备忘
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2015-12-19T08:35:52+08:00" content="2015-12-19">
-              2015-12-19
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-              <p>gdb下调试程序：<br>gcc -c -g painter_parser.c 生成painter_parser.o文件<br>gcc -o painter_parser.exe painter_parser.o 生成painter_parser.exe文件<br>gdb painter_parser 进入gdb调试环境</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">l 浏览代码</span><br><span class="line">回车 向下继续浏览代码</span><br><span class="line">l <span class="number">1</span> 回到第一行</span><br><span class="line"><span class="keyword">break</span> <span class="number">23</span> 在第<span class="number">23</span>行设置断点</span><br><span class="line">r 运行</span><br><span class="line">p 变量  输出变量值</span><br><span class="line">bt 打印当前堆栈所有信息</span><br><span class="line">n 继续运行下一行代码</span><br><span class="line">s 进入到函数中</span><br><span class="line">finish 跳出函数</span><br><span class="line">c 跳到下一个断点</span><br><span class="line">q 退出</span><br></pre></td></tr></table></figure>
-            
-          </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
 
     
       
@@ -327,6 +237,87 @@
 <p>最大连接数是151. 操作mysql的进程数300，超过了mysql的最大连接数而导致部分连接请求失败。调整一下max_connection参数试一下。（这里也可以修改mysql的my.cnf配置文件重启后生效）<br>mysql&gt; set GLOBAL max_connections=1000;</p>
 <p>重新运行批处理脚本，日志中错误消失。</p>
 
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/12/19/gdb调试备忘/" itemprop="url">
+                  gdb调试备忘
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-12-19T08:35:52+08:00" content="2015-12-19">
+              2015-12-19
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p>gdb下调试程序：<br>gcc -c -g painter_parser.c 生成painter_parser.o文件<br>gcc -o painter_parser.exe painter_parser.o 生成painter_parser.exe文件<br>gdb painter_parser 进入gdb调试环境</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">l 浏览代码</span><br><span class="line">回车 向下继续浏览代码</span><br><span class="line">l <span class="number">1</span> 回到第一行</span><br><span class="line"><span class="keyword">break</span> <span class="number">23</span> 在第<span class="number">23</span>行设置断点</span><br><span class="line">r 运行</span><br><span class="line">p 变量  输出变量值</span><br><span class="line">bt 打印当前堆栈所有信息</span><br><span class="line">n 继续运行下一行代码</span><br><span class="line">s 进入到函数中</span><br><span class="line">finish 跳出函数</span><br><span class="line">c 跳到下一个断点</span><br><span class="line">q 退出</span><br></pre></td></tr></table></figure>
             
           </span>
         
@@ -837,7 +828,7 @@ U   <span class="preprocessor"># 提笔</span>
 
           <div class="site-state-item site-state-tags">
             
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">标签</span>
               
           </div>
