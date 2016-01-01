@@ -61,7 +61,7 @@
 <meta property="og:description" content="语言的界限就是一个人的世界的界限。 ——维特根斯坦
 
 领域特定语言是个啥领域特定语言(domain-specific languages,简称DSL)之前只是听过，比如sql就是典型的领域语言，但其实我们平时接触的很多东西都属于DSL的范畴，比如UML、正则等等。下面是Martin Fowler给出的定义：Domain-Specific Language is a computer program">
-<meta property="og:updated_time" content="2015-12-20T13:52:37.333Z">
+<meta property="og:updated_time" content="2016-01-01T02:54:12.509Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="领域特定语言一二三">
 <meta name="twitter:description" content="语言的界限就是一个人的世界的界限。 ——维特根斯坦
@@ -280,7 +280,7 @@ U   <span class="preprocessor"># 提笔</span>
 <span class="tag">&lt;<span class="title">hour</span>&gt;</span> ::= <span class="tag">&lt;<span class="title">digit</span>&gt;</span> | <span class="tag">&lt;<span class="title">digit</span>&gt;</span> <span class="tag">&lt;<span class="title">digit</span>&gt;</span>
 <span class="tag">&lt;<span class="title">minute</span>&gt;</span> ::= <span class="tag">&lt;<span class="title">digit</span>&gt;</span> <span class="tag">&lt;<span class="title">digit</span>&gt;</span>
 <span class="tag">&lt;<span class="title">digit</span>&gt;</span> ::= 0|1|2|3|4|5|6|7|8|9
-</code></pre><h5 id="用解释器生成器实现解释器">用解释器生成器实现解释器</h5><p>首先介绍下什么是解释器生成器(parser generator)，从字面意思理解就是一个生成器，能够生成一个语言的解释器。下面是具体平台上的解释器生成器的一些介绍。</p>
+</code></pre><h5 id="用解释器生成器实现解释器">用解释器生成器实现解释器</h5><p>解释器生成器(parser generator)，从字面意思理解就是一个生成器，能够生成一个语言的解释器。下面是具体平台上的解释器生成器的一些介绍。</p>
 <ul>
 <li>c/c++之yacc/bison</li>
 </ul>
@@ -293,15 +293,6 @@ U   <span class="preprocessor"># 提笔</span>
 <blockquote>
 <p>javacc(java compiler compiler)：<em>是一个用JAVA开发的受欢迎的语法分析生成器。这个分析生成器工具可以读取上下文无关且有着特殊意义的语法并把它转换成可以识别且匹配该语法的JAVA程序。JavaCC可以在Java虚拟机(JVM) V1.2或更高的版本上使用，它是100%的纯Java代码，可以在多种平台上运行，与Sun当时推出Java的口号”Write Once Run Anywhere”相一致。JavaCC还提供JJTree工具来帮助我们建立语法树，JJDoc工具为我们的源文件生成BNF范式(巴科斯-诺尔范式)文档(Html)</em></p>
 </blockquote>
-<ul>
-<li>用bison为上述BNF文法实现解析器</li>
-</ul>
-<p>TODO</p>
-<ul>
-<li>用javacc为上述BNF文法实现解析器</li>
-</ul>
-<p>TODO</p>
-<h5 id="用perl实现解释器">用perl实现解释器</h5><p>TODO</p>
 </span>
       
     </div>
@@ -455,7 +446,7 @@ U   <span class="preprocessor"># 提笔</span>
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#领域特定语言是个啥"><span class="nav-number">1.</span> <span class="nav-text">领域特定语言是个啥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#领域语言的实现举例"><span class="nav-number">2.</span> <span class="nav-text">领域语言的实现举例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#面向行的易于解析的小语言"><span class="nav-number">2.1.</span> <span class="nav-text">面向行的易于解析的小语言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#有正式语法的复杂语言"><span class="nav-number">2.2.</span> <span class="nav-text">有正式语法的复杂语言</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用BNF文法"><span class="nav-number">2.2.1.</span> <span class="nav-text">使用BNF文法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用解释器生成器实现解释器"><span class="nav-number">2.2.2.</span> <span class="nav-text">用解释器生成器实现解释器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用perl实现解释器"><span class="nav-number">2.2.3.</span> <span class="nav-text">用perl实现解释器</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#领域特定语言是个啥"><span class="nav-number">1.</span> <span class="nav-text">领域特定语言是个啥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#领域语言的实现举例"><span class="nav-number">2.</span> <span class="nav-text">领域语言的实现举例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#面向行的易于解析的小语言"><span class="nav-number">2.1.</span> <span class="nav-text">面向行的易于解析的小语言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#有正式语法的复杂语言"><span class="nav-number">2.2.</span> <span class="nav-text">有正式语法的复杂语言</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用BNF文法"><span class="nav-number">2.2.1.</span> <span class="nav-text">使用BNF文法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用解释器生成器实现解释器"><span class="nav-number">2.2.2.</span> <span class="nav-text">用解释器生成器实现解释器</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
@@ -476,7 +467,7 @@ U   <span class="preprocessor"># 提笔</span>
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2015</span>
+  <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>
