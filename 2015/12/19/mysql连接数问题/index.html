@@ -56,10 +56,10 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql连接数问题">
 <meta property="og:url" content="http://yoursite.com/2015/12/19/mysql连接数问题/index.html">
-<meta property="og:site_name" content="qb's home">
+<meta property="og:site_name" content="qb's">
 <meta property="og:description" content="最近在跑一个shell脚本，大概的流程是：1234从hive拉取数据到一个文件把步骤1的文件切分成100个子文件启动300个子进程，传入子文件做参数，每个进程都会调用一个后端的php脚本，来处理子文件。处理过程比较复杂，会涉及到多个读、写操作
 开始运行后，日志里出现部分sql执行失败的情况。出错的sql既有写操作语句，也有读操作语句。首先怀疑是不是sql本身的问题。把sql拿出来在mysql cl">
-<meta property="og:updated_time" content="2015-12-19T01:09:53.518Z">
+<meta property="og:updated_time" content="2016-01-03T05:16:43.676Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql连接数问题">
 <meta name="twitter:description" content="最近在跑一个shell脚本，大概的流程是：1234从hive拉取数据到一个文件把步骤1的文件切分成100个子文件启动300个子进程，传入子文件做参数，每个进程都会调用一个后端的php脚本，来处理子文件。处理过程比较复杂，会涉及到多个读、写操作
@@ -69,13 +69,13 @@
 
 <script type="text/javascript" id="hexo.configuration">
   var CONFIG = {
-    scheme: '',
-    sidebar: 'post',
+    scheme: 'Mist',
+    sidebar: 'hide',
     motion: true
   };
 </script>
 
-  <title> mysql连接数问题 | qb's home </title>
+  <title> mysql连接数问题 | qb's </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -106,7 +106,7 @@
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">qb's home</span>
+      <span class="site-title">qb's</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -144,6 +144,46 @@
               <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
             
             归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-heartbeat fa-fw"></i> <br />
+            
+            公益404
           </a>
         </li>
       
@@ -199,6 +239,21 @@
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -327,17 +382,17 @@
           </div>
 
           <div class="site-state-item site-state-categories">
-            
-              <span class="site-state-item-count">0</span>
+            <a href="/categories">
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">分类</span>
-              
+              </a>
           </div>
 
           <div class="site-state-item site-state-tags">
-            
-              <span class="site-state-item-count">17</span>
+            <a href="/tags">
+              <span class="site-state-item-count">13</span>
               <span class="site-state-item-name">标签</span>
-              
+              </a>
           </div>
 
         </nav>
@@ -402,7 +457,7 @@
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT
+    NexT.Mist
   </a>
 </div>
 
