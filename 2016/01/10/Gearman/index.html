@@ -62,7 +62,7 @@
 <meta property="og:image" content="http://yoursite.com/images/gearman.png">
 <meta property="og:image" content="http://yoursite.com/images/reverse_example.png">
 <meta property="og:image" content="http://yoursite.com/images/gearman_deploy.png">
-<meta property="og:updated_time" content="2016-01-17T15:50:51.551Z">
+<meta property="og:updated_time" content="2016-01-17T15:53:56.589Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式任务调度系统 gearman">
 <meta name="twitter:description" content="下面的内容基本都是参考Gearman的官方文档。详情请见gearman.org
@@ -293,11 +293,14 @@ make install
 <pre><code>gearmand <span class="operator">-d</span>
 </code></pre><h4 id="Client和Worker_API">Client和Worker API</h4><p>Gearmand启动后，接下来就是选择client和worker api。文档中介绍了两种方式：一种是命令行工具，另一种是php扩展。</p>
 <p>首先我们看下命令行工具。</p>
-<h5 id="Command_Line_Tool">Command Line Tool</h5><p>在安装gearman的Job Server时，会包含gearman的命令行工具。我们可以启动一个gearman worker。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gearman -w <span class="operator">-f</span> wc -- wc <span class="operator">-l</span></span><br></pre></td></tr></table></figure></p>
-<p>gearman -w 表示以worker方式执行，-f表示函数。这里，worker将会连接本地(localhost)的job server，并向job server注册一个名为 <em>wc</em> 的函数（函数的具体实现就是 <em>wc -l</em> ）。当当worker收到job server转发过来的job时，就开始执行 <em>wc -l</em> 命令。</p>
-<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>gearman -f wc &lt; <span class="regexp">/etc/passwd</span></span><br><span class="line"><span class="number">27</span></span><br></pre></td></tr></table></figure>
-<p>gearman去掉 -w选项后，就表示以client方式执行。这里，client会提交一个job到本地（localhost）的job server，job就是执行<em>wc</em>函数，传入的参数就是/etc/passwd。最终就相当于执行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wc <span class="operator">-l</span> /etc/passwd</span><br></pre></td></tr></table></figure></p>
-<p>上述的command line tool的例子中，job server、client、worker都是在同一台机器上运行。它们也可以分散到不同的机器上。Command Line Tool在分布式领域应用 很广泛，比如快速原型搭建、分布式集群管理工具、分发shell脚本到不同机器上做处理（比如日志分析）等等。</p>
+<h5 id="Command_Line_Tool">Command Line Tool</h5><p>在安装gearman的Job Server时，会包含gearman的命令行工具。我们可以启动一个gearman worker。</p>
+<pre><code>gearman -w <span class="operator">-f</span> wc -- wc <span class="operator">-l</span>
+</code></pre><p>gearman -w 表示以worker方式执行，-f表示函数。这里，worker将会连接本地(localhost)的job server，并向job server注册一个名为 <em>wc</em> 的函数（函数的具体实现就是 <em>wc -l</em> ）。当当worker收到job server转发过来的job时，就开始执行 <em>wc -l</em> 命令。</p>
+<pre><code>gearman <span class="operator">-f</span> wc &lt; /etc/passwd
+<span class="number">27</span>
+</code></pre><p>gearman去掉 -w选项后，就表示以client方式执行。这里，client会提交一个job到本地（localhost）的job server，job就是执行<em>wc</em>函数，传入的参数就是/etc/passwd。最终就相当于执行：</p>
+<pre><code>wc <span class="operator">-l</span> /etc/passwd
+</code></pre><p>上述的command line tool的例子中，job server、client、worker都是在同一台机器上运行。它们也可以分散到不同的机器上。Command Line Tool在分布式领域应用 很广泛，比如快速原型搭建、分布式集群管理工具、分发shell脚本到不同机器上做处理（比如日志分析）等等。</p>
 <h5 id="PHP扩展">PHP扩展</h5><p>TODO</p>
 </span>
       
