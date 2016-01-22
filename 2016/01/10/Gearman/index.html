@@ -62,7 +62,7 @@
 <meta property="og:image" content="http://yoursite.com/images/gearman.png">
 <meta property="og:image" content="http://yoursite.com/images/reverse_example.png">
 <meta property="og:image" content="http://yoursite.com/images/gearman_deploy.png">
-<meta property="og:updated_time" content="2016-01-22T00:24:49.883Z">
+<meta property="og:updated_time" content="2016-01-22T00:28:12.206Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式任务调度系统 gearman">
 <meta name="twitter:description" content="下面的内容基本都是参考Gearman的官方文档。详情请见gearman.org
@@ -283,7 +283,7 @@
 <li>容错性，避免单点故障。<em>what if the job server dies? You are able to run multiple job servers and have the clients and workers connect to the first available job server they are configured with. This way if one job server dies, clients and workers automatically fail over to another job server. You probably don’t want to run too many job servers, but having two or three is a good idea for redundancy. </em></li>
 </ul>
 <p><img src="/images/gearman_deploy.png" alt="Alt gearman部署结构图"></p>
-<h3 id="Gearman的安装与管理">Gearman的安装与管理</h3><h4 id="Job_Server">Job Server</h4><p>首先我们安装Job Server。去官方网站下载稳定tar包，然后编译安装。</p>
+<h3 id="Gearman的安装与管理">Gearman的安装与管理</h3><h4 id="Job_Server">Job Server</h4><p>首先我们安装Job Server。去<a href="http://gearman.org/download/" target="_blank" rel="external">官方网站</a>下载稳定tar包，然后编译安装。</p>
 <pre><code>tar xzf gearmand-X<span class="class">.Y</span><span class="class">.tar</span><span class="class">.gz</span>
 cd gearmand-X<span class="class">.Y</span>
 ./configure
@@ -310,15 +310,34 @@ make
 make install
 </code></pre><p>安装完成后，把gearman.so添加到php.ini中</p>
 <pre><code><span class="attribute">extension</span>=<span class="string">gearman.so</span>
-</code></pre><p>测试一下gearman的php接口是否正常<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="keyword">print</span> gearman_version() . <span class="string">"\n"</span>;</span><br><span class="line"><span class="preprocessor">?&gt;</span></span></span><br></pre></td></tr></table></figure></p>
-<p>运行：</p>
+</code></pre><p>测试一下gearman的php接口是否正常</p>
+<pre><code><span class="php"><span class="preprocessor">&lt;?php</span>
+<span class="keyword">print</span> gearman_version() . <span class="string">"\n"</span>;
+<span class="preprocessor">?&gt;</span></span>
+</code></pre><p>运行：</p>
 <pre><code>/usr/local/php/bin/php test.php
 <span class="number">1.1</span><span class="number">.12</span>
-</code></pre><p>下面是一个基于gearman php扩展的例子。<br>worker实现的功能：接收一个字符串，返回这个字符串的倒序结果。<br><em>worker.php</em><br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$worker</span>= new GearmanWorker();</span><br><span class="line"><span class="variable">$worker-</span>&gt;addServer();</span><br><span class="line"><span class="variable">$worker-</span>&gt;addFunction(<span class="string">"reverse"</span>, <span class="string">"my_reverse_function"</span>);</span><br><span class="line">//一直会等待job server分发过来的task，一旦有任务过来，就开始执行my_reverse_function</span><br><span class="line"><span class="keyword">while</span> (<span class="variable">$worker-</span>&gt;work()); </span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> my_reverse_function(<span class="variable">$job</span>) &#123;</span><br><span class="line">  return strrev(<span class="variable">$job-</span>&gt;workload());</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
-<p>启动worker</p>
+</code></pre><p>下面是一个基于gearman php扩展的例子。<br>worker实现的功能：接收一个字符串，返回这个字符串的倒序结果。<br><em>worker.php</em></p>
+<pre><code>&lt;?php
+<span class="variable">$worker</span>= new GearmanWorker();
+<span class="variable">$worker-</span>&gt;addServer();
+<span class="variable">$worker-</span>&gt;addFunction(<span class="string">"reverse"</span>, <span class="string">"my_reverse_function"</span>);
+//一直会等待job server分发过来的task，一旦有任务过来，就开始执行my_reverse_function
+<span class="keyword">while</span> (<span class="variable">$worker-</span>&gt;work()); 
+
+<span class="keyword">function</span> my_reverse_function(<span class="variable">$job</span>) {
+  return strrev(<span class="variable">$job-</span>&gt;workload());
+}
+?&gt;
+</code></pre><p>启动worker</p>
 <pre><code><span class="regexp">/usr/</span>local<span class="regexp">/php/</span>bin<span class="regexp">/php worker.php</span>
-</code></pre><p>client实现功能：向job server提交task，调用reverse函数，参数为“hello world”.<br><em>client.php</em><br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$client</span>= new GearmanClient();</span><br><span class="line"><span class="variable">$client-</span>&gt;addServer();</span><br><span class="line">print <span class="variable">$client-</span>&gt;do(<span class="string">"reverse"</span>, <span class="string">"Hello World!"</span>);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
-<p>运行client</p>
+</code></pre><p>client实现功能：向job server提交task，调用reverse函数，参数为“hello world”.<br><em>client.php</em></p>
+<pre><code>&lt;?php
+<span class="variable">$client</span>= new GearmanClient();
+<span class="variable">$client-</span>&gt;addServer();
+print <span class="variable">$client-</span>&gt;do(<span class="string">"reverse"</span>, <span class="string">"Hello World!"</span>);
+?&gt;
+</code></pre><p>运行client</p>
 <pre><code><span class="regexp">/usr/</span>local<span class="regexp">/php/</span>bin/php client.php
 !dlroW olleH
 </code></pre><h3 id="最后">最后</h3><p>Gearman官方网站上面有更详细的说明和应用实例。</p>

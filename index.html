@@ -426,6 +426,186 @@
             
               
                 
+                <a class="post-title-link" href="/2016/01/10/Gearman/" itemprop="url">
+                  分布式任务调度系统 gearman
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-01-10T00:00:00+08:00" content="2016-01-10">
+              2016-01-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/分布式系统/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式系统</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p>下面的内容基本都是参考Gearman的官方文档。详情请见<a href="gearman.org">gearman.org</a></p>
+<h3 id="什么是Gearman">什么是Gearman</h3><p>Gearman是一个分布式任务调度框架，最早在 <a href="livejournal.com">livejournal.com</a> 用于分布式文件存储系统、MogileFS的协调机制等。“gearman”这个名字的来历也挺有意思。之所以叫“gearman”，是因为它是“manager”被颠倒字母顺序后组成的一个单词。为什么在manager颠倒字母后的多个单词中单单选中“gearman”，我想是因为“gear”有传动装置、协调的意思，“man”就是一个人，加一起就是一个协调者，传动者。Gearman就像一个manager，自己不做具体工作，而是分发任务给下属。</p>
+<p>下面截取一段gearman官方网站给出的介绍：</p>
+<blockquote>
+<p>Gearman provides a generic application framework to farm out work to other machines or processes that are better suited to do the work. It allows you to do work in parallel, to load balance processing, and to call functions between languages. It can be used in a variety of applications, from high-availability web sites to the transport of database replication events. In other words, it is the nervous system for how distributed processing communicates.</p>
+</blockquote>
+<p>翻译过来就是：Gearman是一个通用的应用框架，它可以把任务分发到专门处理这些任务的节点上（处理任务的进程或机器）。它可以并行的处理任务、处理任务时做负载均衡，并且支持多语言之间的函数调用。可以用于从高可用web站点到数据库备份传输等一系列的应用场景中。它相当于一个神经系统，用来决定分布式处理程序之间的通信细节。</p>
+<h3 id="Gearman是如何工作的">Gearman是如何工作的</h3><p>Gearman总共分为三个部分：</p>
+<ol>
+<li>client：产生task，并把task提交给job server</li>
+<li>job server：接收client提交的task，找到相应的worker，并把task交给worker执行，把worker返回的结果返回给client</li>
+<li>worker：接收来自job server分发的task，执行，返回结果给job server</li>
+</ol>
+<p><img src="/images/gearman.png" alt="Alt Gearman框架结构图"></p>
+<p>下面是一个例子：<em>通过gearman实现字符串反转功能。</em></p>
+<p>客户端代码实现：<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//初始化客户端</span><br><span class="line"><span class="variable">$client</span> = new GearmanClient();  </span><br><span class="line">//绑定job server，这里job server是本机</span><br><span class="line"><span class="variable">$client-</span>&gt;addServer(<span class="string">'127.0.0.1'</span>, <span class="string">'4730'</span>);  </span><br><span class="line">//客户端发送调用请求，函数是reverse，参数是<span class="string">"hello world"</span>字符串。</span><br><span class="line">print <span class="variable">$client-</span>&gt;do(<span class="string">'reverse'</span>, <span class="string">'hello world'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>这里客户端会把调用请求发送给job server，发送时，会把请求的数据（包括函数名和参数）按照gearman的包协议打包，然后再发送给job server。函数名和参数对于gearman可以是任意的。</p>
+<p>worker代码实现：<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//初始化worker</span><br><span class="line"><span class="variable">$worker</span> = new GearmanWorker(); </span><br><span class="line">//绑定job server，这里job server是本机（注册worker，job server会记录worker来源）</span><br><span class="line"><span class="variable">$worker-</span>&gt;addServer(<span class="string">'127.0.0.1'</span>, <span class="string">'4730'</span>); </span><br><span class="line">//定义一个反转字符串的函数，并注册名为reverse</span><br><span class="line">//job server会记录这个worker注册了reverse函数</span><br><span class="line"><span class="variable">$worker-</span>&gt;addFunction(<span class="string">"reverse"</span>, <span class="keyword">function</span>(<span class="variable">$job</span>) &#123;</span><br><span class="line">     return strrev(<span class="variable">$job-</span>&gt;workload());</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">while</span>(<span class="variable">$worker-</span>&gt;work()); //等待client的请求</span><br></pre></td></tr></table></figure></p>
+<p>把worker代码运行起来，客户端发送请求后会输出”hello world”.</p>
+<p><img src="/images/reverse_example.png" alt="Alt 实例图"></p>
+<h3 id="Gearman的使用方式">Gearman的使用方式</h3><ul>
+<li>多语言支持：<em>you can use Gearman as an interface between a client and a worker written in different languages.</em></li>
+<li>负载均衡、部署方式：<em>put the worker code on a separate machine (or cluster of machines) that are better suited to do the work. 比如收到图片处理的请求后，可以在单独的机器上做图片处理工作。 you also get a natural form of load balancing since the job server only sends new jobs to idle workers. If all the workers running on a given machine are busy, you don’t need to worry about new jobs being sent there.</em> </li>
+<li>可扩展性：worker机器可伸缩。<em>It is also seamless to add new machines to expand your worker pool, just boot them up, install the worker code, and have them connect to the existing job server. </em></li>
+<li>容错性，避免单点故障。<em>what if the job server dies? You are able to run multiple job servers and have the clients and workers connect to the first available job server they are configured with. This way if one job server dies, clients and workers automatically fail over to another job server. You probably don’t want to run too many job servers, but having two or three is a good idea for redundancy. </em></li>
+</ul>
+<p><img src="/images/gearman_deploy.png" alt="Alt gearman部署结构图"></p>
+<h3 id="Gearman的安装与管理">Gearman的安装与管理</h3><h4 id="Job_Server">Job Server</h4><p>首先我们安装Job Server。去<a href="http://gearman.org/download/" target="_blank" rel="external">官方网站</a>下载稳定tar包，然后编译安装。</p>
+<pre><code>tar xzf gearmand-X<span class="class">.Y</span><span class="class">.tar</span><span class="class">.gz</span>
+cd gearmand-X<span class="class">.Y</span>
+./configure
+make
+make install
+</code></pre><p>启动Job Server：</p>
+<pre><code>gearmand <span class="operator">-d</span>
+</code></pre><h4 id="Client和Worker_API">Client和Worker API</h4><p>Gearmand启动后，接下来就是选择client和worker api。文档中介绍了两种方式：一种是命令行工具，另一种是php扩展。</p>
+<p>首先我们看下命令行工具。</p>
+<h5 id="Command_Line_Tool">Command Line Tool</h5><p>在安装gearman的Job Server时，会包含gearman的命令行工具。我们可以启动一个gearman worker。</p>
+<pre><code>gearman -w <span class="operator">-f</span> wc -- wc <span class="operator">-l</span>
+</code></pre><p>gearman -w 表示以worker方式执行，-f表示函数。这里，worker将会连接本地(localhost)的job server，并向job server注册一个名为 <em>wc</em> 的函数（函数的具体实现就是 <em>wc -l</em> ）。当当worker收到job server转发过来的job时，就开始执行 <em>wc -l</em> 命令。</p>
+<pre><code>gearman <span class="operator">-f</span> wc &lt; /etc/passwd
+<span class="number">27</span>
+</code></pre><p>gearman去掉 -w选项后，就表示以client方式执行。这里，client会提交一个job到本地（localhost）的job server，job就是执行<em>wc</em>函数，传入的参数就是/etc/passwd。最终就相当于执行：</p>
+<pre><code>wc <span class="operator">-l</span> /etc/passwd
+</code></pre><p>上述的command line tool的例子中，job server、client、worker都是在同一台机器上运行。它们也可以分散到不同的机器上。Command Line Tool在分布式领域应用 很广泛，比如快速原型搭建、分布式集群管理工具、分发shell脚本到不同机器上做处理（比如日志分析）等等。</p>
+<h5 id="PHP扩展">PHP扩展</h5><p>在 <a href="http://pecl.php.net/package/gearman" target="_blank" rel="external">PECL</a>上下载gearman的php扩展包。然后安装：</p>
+<pre><code>tar xzf gearman-X<span class="class">.Y</span><span class="class">.tgz</span>
+cd gearman-X<span class="class">.Y</span>
+phpize
+./configure
+make
+make install
+</code></pre><p>安装完成后，把gearman.so添加到php.ini中</p>
+<pre><code><span class="attribute">extension</span>=<span class="string">gearman.so</span>
+</code></pre><p>测试一下gearman的php接口是否正常</p>
+<pre><code><span class="php"><span class="preprocessor">&lt;?php</span>
+<span class="keyword">print</span> gearman_version() . <span class="string">"\n"</span>;
+<span class="preprocessor">?&gt;</span></span>
+</code></pre><p>运行：</p>
+<pre><code>/usr/local/php/bin/php test.php
+<span class="number">1.1</span><span class="number">.12</span>
+</code></pre><p>下面是一个基于gearman php扩展的例子。<br>worker实现的功能：接收一个字符串，返回这个字符串的倒序结果。<br><em>worker.php</em></p>
+<pre><code>&lt;?php
+<span class="variable">$worker</span>= new GearmanWorker();
+<span class="variable">$worker-</span>&gt;addServer();
+<span class="variable">$worker-</span>&gt;addFunction(<span class="string">"reverse"</span>, <span class="string">"my_reverse_function"</span>);
+//一直会等待job server分发过来的task，一旦有任务过来，就开始执行my_reverse_function
+<span class="keyword">while</span> (<span class="variable">$worker-</span>&gt;work()); 
+
+<span class="keyword">function</span> my_reverse_function(<span class="variable">$job</span>) {
+  return strrev(<span class="variable">$job-</span>&gt;workload());
+}
+?&gt;
+</code></pre><p>启动worker</p>
+<pre><code><span class="regexp">/usr/</span>local<span class="regexp">/php/</span>bin<span class="regexp">/php worker.php</span>
+</code></pre><p>client实现功能：向job server提交task，调用reverse函数，参数为“hello world”.<br><em>client.php</em></p>
+<pre><code>&lt;?php
+<span class="variable">$client</span>= new GearmanClient();
+<span class="variable">$client-</span>&gt;addServer();
+print <span class="variable">$client-</span>&gt;do(<span class="string">"reverse"</span>, <span class="string">"Hello World!"</span>);
+?&gt;
+</code></pre><p>运行client</p>
+<pre><code><span class="regexp">/usr/</span>local<span class="regexp">/php/</span>bin/php client.php
+!dlroW olleH
+</code></pre><h3 id="最后">最后</h3><p>Gearman官方网站上面有更详细的说明和应用实例。</p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/01/01/2015年读过的几本书/" itemprop="url">
                   2015年读过的几本书
                 </a>
