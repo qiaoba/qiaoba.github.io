@@ -62,7 +62,8 @@
 <meta property="og:image" content="http://yoursite.com/images/gearman.png">
 <meta property="og:image" content="http://yoursite.com/images/reverse_example.png">
 <meta property="og:image" content="http://yoursite.com/images/gearman_deploy.png">
-<meta property="og:updated_time" content="2016-01-17T15:53:56.589Z">
+<meta property="og:image" content="http://pecl.php.net/package/gearman">
+<meta property="og:updated_time" content="2016-01-22T00:20:53.971Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式任务调度系统 gearman">
 <meta name="twitter:description" content="下面的内容基本都是参考Gearman的官方文档。详情请见gearman.org
@@ -301,7 +302,27 @@ make install
 </code></pre><p>gearman去掉 -w选项后，就表示以client方式执行。这里，client会提交一个job到本地（localhost）的job server，job就是执行<em>wc</em>函数，传入的参数就是/etc/passwd。最终就相当于执行：</p>
 <pre><code>wc <span class="operator">-l</span> /etc/passwd
 </code></pre><p>上述的command line tool的例子中，job server、client、worker都是在同一台机器上运行。它们也可以分散到不同的机器上。Command Line Tool在分布式领域应用 很广泛，比如快速原型搭建、分布式集群管理工具、分发shell脚本到不同机器上做处理（比如日志分析）等等。</p>
-<h5 id="PHP扩展">PHP扩展</h5><p>TODO</p>
+<h5 id="PHP扩展">PHP扩展</h5><p>在<img src="http://pecl.php.net/package/gearman" alt="PECL">上下载gearman的php扩展包。然后安装：</p>
+<pre><code>tar xzf gearman-X<span class="class">.Y</span><span class="class">.tgz</span>
+cd gearman-X<span class="class">.Y</span>
+phpize
+./configure
+make
+make install
+</code></pre><p>安装完成后，把gearman.so添加到php.ini中</p>
+<pre><code><span class="attribute">extension</span>=<span class="string">gearman.so</span>
+</code></pre><p>测试一下gearman的php接口是否正常<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="keyword">print</span> gearman_version() . <span class="string">"\n"</span>;</span><br><span class="line"><span class="preprocessor">?&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<p>运行：</p>
+<pre><code>/usr/local/php/bin/php test.php
+<span class="number">1.1</span><span class="number">.12</span>
+</code></pre><p>下面是一个基于gearman php扩展的例子。<br>worker实现的功能：接收一个字符串，返回这个字符串的倒序结果。<br><em>worker.php</em><br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$worker</span>= new GearmanWorker();</span><br><span class="line"><span class="variable">$worker-</span>&gt;addServer();</span><br><span class="line"><span class="variable">$worker-</span>&gt;addFunction(<span class="string">"reverse"</span>, <span class="string">"my_reverse_function"</span>);</span><br><span class="line">//一直会等待job server分发过来的task，一旦有任务过来，就开始执行my_reverse_function</span><br><span class="line"><span class="keyword">while</span> (<span class="variable">$worker-</span>&gt;work()); </span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> my_reverse_function(<span class="variable">$job</span>) &#123;</span><br><span class="line">  return strrev(<span class="variable">$job-</span>&gt;workload());</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
+<p>启动worker</p>
+<pre><code><span class="regexp">/usr/</span>local<span class="regexp">/php/</span>bin<span class="regexp">/php worker.php</span>
+</code></pre><p>client实现功能：向job server提交task，调用reverse函数，参数为“hello world”.<br><em>client.php</em><br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="variable">$client</span>= new GearmanClient();</span><br><span class="line"><span class="variable">$client-</span>&gt;addServer();</span><br><span class="line">print <span class="variable">$client-</span>&gt;do(<span class="string">"reverse"</span>, <span class="string">"Hello World!"</span>);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
+<p>运行client</p>
+<pre><code><span class="regexp">/usr/</span>local<span class="regexp">/php/</span>bin/php client.php
+!dlroW olleH
+</code></pre><h3 id="最后">最后</h3><p>Gearman官方网站上面有更详细的说明和应用实例。</p>
 </span>
       
     </div>
@@ -443,7 +464,7 @@ make install
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Gearman"><span class="nav-number">1.</span> <span class="nav-text">什么是Gearman</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gearman是如何工作的"><span class="nav-number">2.</span> <span class="nav-text">Gearman是如何工作的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gearman的使用方式"><span class="nav-number">3.</span> <span class="nav-text">Gearman的使用方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gearman的安装与管理"><span class="nav-number">4.</span> <span class="nav-text">Gearman的安装与管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Job_Server"><span class="nav-number">4.1.</span> <span class="nav-text">Job Server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Client和Worker_API"><span class="nav-number">4.2.</span> <span class="nav-text">Client和Worker API</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Command_Line_Tool"><span class="nav-number">4.2.1.</span> <span class="nav-text">Command Line Tool</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PHP扩展"><span class="nav-number">4.2.2.</span> <span class="nav-text">PHP扩展</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Gearman"><span class="nav-number">1.</span> <span class="nav-text">什么是Gearman</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gearman是如何工作的"><span class="nav-number">2.</span> <span class="nav-text">Gearman是如何工作的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gearman的使用方式"><span class="nav-number">3.</span> <span class="nav-text">Gearman的使用方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gearman的安装与管理"><span class="nav-number">4.</span> <span class="nav-text">Gearman的安装与管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Job_Server"><span class="nav-number">4.1.</span> <span class="nav-text">Job Server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Client和Worker_API"><span class="nav-number">4.2.</span> <span class="nav-text">Client和Worker API</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Command_Line_Tool"><span class="nav-number">4.2.1.</span> <span class="nav-text">Command Line Tool</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PHP扩展"><span class="nav-number">4.2.2.</span> <span class="nav-text">PHP扩展</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">5.</span> <span class="nav-text">最后</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
