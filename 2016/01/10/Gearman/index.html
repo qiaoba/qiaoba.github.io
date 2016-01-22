@@ -62,8 +62,7 @@
 <meta property="og:image" content="http://yoursite.com/images/gearman.png">
 <meta property="og:image" content="http://yoursite.com/images/reverse_example.png">
 <meta property="og:image" content="http://yoursite.com/images/gearman_deploy.png">
-<meta property="og:image" content="http://pecl.php.net/package/gearman">
-<meta property="og:updated_time" content="2016-01-22T00:20:53.971Z">
+<meta property="og:updated_time" content="2016-01-22T00:24:49.883Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式任务调度系统 gearman">
 <meta name="twitter:description" content="下面的内容基本都是参考Gearman的官方文档。详情请见gearman.org
@@ -302,7 +301,7 @@ make install
 </code></pre><p>gearman去掉 -w选项后，就表示以client方式执行。这里，client会提交一个job到本地（localhost）的job server，job就是执行<em>wc</em>函数，传入的参数就是/etc/passwd。最终就相当于执行：</p>
 <pre><code>wc <span class="operator">-l</span> /etc/passwd
 </code></pre><p>上述的command line tool的例子中，job server、client、worker都是在同一台机器上运行。它们也可以分散到不同的机器上。Command Line Tool在分布式领域应用 很广泛，比如快速原型搭建、分布式集群管理工具、分发shell脚本到不同机器上做处理（比如日志分析）等等。</p>
-<h5 id="PHP扩展">PHP扩展</h5><p>在<img src="http://pecl.php.net/package/gearman" alt="PECL">上下载gearman的php扩展包。然后安装：</p>
+<h5 id="PHP扩展">PHP扩展</h5><p>在 <a href="http://pecl.php.net/package/gearman" target="_blank" rel="external">PECL</a>上下载gearman的php扩展包。然后安装：</p>
 <pre><code>tar xzf gearman-X<span class="class">.Y</span><span class="class">.tgz</span>
 cd gearman-X<span class="class">.Y</span>
 phpize
