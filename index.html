@@ -187,15 +187,6 @@
 
     
     
-      
-      
-        
-        
-        
-      
-
-      
-    
 
     
       
@@ -265,23 +256,23 @@
           <span itemprop="articleBody">
             
             应用场景有三个文件，a.txt, b.txt, c.txt.
-a.txt 文件格式：K A
+a.txt 文件格式：K   A
 $ cat a.txt
 1 234
 2 456
 4 789
-b.txt 文件格式：K B
+b.txt 文件格式：K   B
 $ cat b.txt
 2 33333
 3 44444
-c.txt 文件格式：K C
+c.txt 文件格式：K   C
 $ cat c.txt
 4 890
 5 8324
 7 1111
 把a b c三个文件合并成一个文件，文件格式为：K A B C。其中，不存在的列值补为0。
-处理文本，awk很方便：
-123456789101112131415161718awk '    FNR == 1 &#123;        n++;    &#125;  
+用awk来处理文本：
+123456789101112131415161718awk '    FNR == 1 &#123;        n++;    &#12
             ...
           </span>
           <div class="post-more-link text-center">
