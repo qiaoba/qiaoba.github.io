@@ -120,7 +120,7 @@ $ cat c.txt
 5 8324
 7 1111
 把a b c三个文件合并成一个文件，文件格式为：K A">
-<meta property="og:updated_time" content="2016-08-06T02:30:36.904Z">
+<meta property="og:updated_time" content="2016-08-06T03:08:45.712Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="awk实现多文件按列合并">
 <meta name="twitter:description" content="应用场景有三个文件，a.txt, b.txt, c.txt.
@@ -341,8 +341,7 @@ $ cat c.txt
 <span class="number">4</span> <span class="number">890</span>
 <span class="number">5</span> <span class="number">8324</span>
 <span class="number">7</span> <span class="number">1111</span>
-</code></pre><p>把a b c三个文件合并成一个文件，文件格式为：K A B C。其中，不存在的列值补为0。</p>
-<p>用awk来处理文本：</p>
+</code></pre><p>把a b c三个文件合并成一个文件，文件格式为：K A B C。其中，不存在的列值补为0。<br><a id="more"></a><br>用awk来处理文本：</p>
 <pre><code>awk '
     FNR == 1 {
         <span class="keyword">n</span>++;

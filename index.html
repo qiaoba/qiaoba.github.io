@@ -286,8 +286,7 @@
 
       
         
-          
-            <h4 id="应用场景">应用场景</h4><p>有三个文件，a.txt, b.txt, c.txt.</p>
+          <h4 id="应用场景">应用场景</h4><p>有三个文件，a.txt, b.txt, c.txt.</p>
 <p>a.txt 文件格式：K   A</p>
 <pre><code>$ cat a.txt
 <span class="number">1</span> <span class="number">234</span>
@@ -302,151 +301,12 @@
 <span class="number">4</span> <span class="number">890</span>
 <span class="number">5</span> <span class="number">8324</span>
 <span class="number">7</span> <span class="number">1111</span>
-</code></pre><p>把a b c三个文件合并成一个文件，文件格式为：K A B C。其中，不存在的列值补为0。</p>
-<p>用awk来处理文本：</p>
-<pre><code>awk '
-    FNR == 1 {
-        <span class="keyword">n</span>++;
-    }
-    {
-        a[<span class="label">$1</span>] = 0;
-        b[<span class="label">$1</span><span class="string">","</span><span class="keyword">n</span>] = <span class="label">$2</span>;
-    }
-    END {
-        <span class="keyword">for</span>(k <span class="keyword">in</span> a){
-            printf(<span class="string">"%s\t"</span>, k); 
-            <span class="keyword">for</span>(<span class="keyword">m</span> = 1; <span class="keyword">m</span> &lt;= <span class="keyword">n</span>; <span class="keyword">m</span>++) {
-                printf(<span class="string">"%s\t"</span>, b[k<span class="string">","</span><span class="keyword">m</span>] == <span class="string">""</span> ? 0 : b[k<span class="string">","</span><span class="keyword">m</span>]); 
-            }
-            <span class="keyword">print</span> <span class="string">""</span>;
-        }
-    }
-' a.txt b.txt c.txt | <span class="keyword">sort</span>
-</code></pre><p>输出结果：</p>
-<pre><code><span class="number">1</span>       <span class="number">234</span>     <span class="number">0</span>       <span class="number">0</span>
-<span class="number">2</span>       <span class="number">456</span>     <span class="number">33333</span>   <span class="number">0</span>
-<span class="number">3</span>       <span class="number">0</span>       <span class="number">44444</span>   <span class="number">0</span>
-<span class="number">4</span>       <span class="number">789</span>     <span class="number">0</span>       <span class="number">890</span>
-<span class="number">5</span>       <span class="number">0</span>       <span class="number">0</span>       <span class="number">8324</span>
-<span class="number">7</span>       <span class="number">0</span>       <span class="number">0</span>       <span class="number">1111</span>
-</code></pre><p>这里面存在的问题是，没有考虑存在空文件的情况。添加一个文件d.txt，文件格式为：K  D</p>
-<pre><code><span class="variable">$ </span>touch d.txt
-</code></pre><p>如果不向d.txt写内容，把d.txt作为一个空文件放到脚本参数中，希望最终的结果格式是：K    A   B   C   D</p>
-<pre><code>awk '
-    FNR == 1 {
-        <span class="keyword">n</span>++;
-    }
-    {
-        a[<span class="label">$1</span>] = 0;
-        b[<span class="label">$1</span><span class="string">","</span><span class="keyword">n</span>] = <span class="label">$2</span>;
-    }
-    END {
-        <span class="keyword">for</span>(k <span class="keyword">in</span> a){
-            printf(<span class="string">"%s\t"</span>, k); 
-            <span class="keyword">for</span>(<span class="keyword">m</span> = 1; <span class="keyword">m</span> &lt;= <span class="keyword">n</span>; <span class="keyword">m</span>++) {
-                printf(<span class="string">"%s\t"</span>, b[k<span class="string">","</span><span class="keyword">m</span>] == <span class="string">""</span> ? 0 : b[k<span class="string">","</span><span class="keyword">m</span>]); 
-            }
-            <span class="keyword">print</span> <span class="string">""</span>;
-        }
-    }
-' a.txt b.txt c.txt <span class="keyword">d</span>.txt | <span class="keyword">sort</span>
-</code></pre><p>结果：</p>
-<pre><code><span class="number">1</span>       <span class="number">234</span>     <span class="number">0</span>       <span class="number">0</span>
-<span class="number">2</span>       <span class="number">456</span>     <span class="number">33333</span>   <span class="number">0</span>
-<span class="number">3</span>       <span class="number">0</span>       <span class="number">44444</span>   <span class="number">0</span>
-<span class="number">4</span>       <span class="number">789</span>     <span class="number">0</span>       <span class="number">890</span>
-<span class="number">5</span>       <span class="number">0</span>       <span class="number">0</span>       <span class="number">8324</span>
-<span class="number">7</span>       <span class="number">0</span>       <span class="number">0</span>       <span class="number">1111</span>
-</code></pre><p>但我们想要的是：</p>
-<pre><code><span class="number">1</span>       <span class="number">234</span>     <span class="number">0</span>       <span class="number">0</span>       <span class="number">0</span>
-<span class="number">2</span>       <span class="number">456</span>     <span class="number">33333</span>   <span class="number">0</span>       <span class="number">0</span>
-<span class="number">3</span>       <span class="number">0</span>       <span class="number">44444</span>   <span class="number">0</span>       <span class="number">0</span>
-<span class="number">4</span>       <span class="number">789</span>     <span class="number">0</span>       <span class="number">890</span>     <span class="number">0</span>
-<span class="number">5</span>       <span class="number">0</span>       <span class="number">0</span>       <span class="number">8324</span>    <span class="number">0</span>
-<span class="number">7</span>       <span class="number">0</span>       <span class="number">0</span>       <span class="number">1111</span>    <span class="number">0</span>
-</code></pre><p>这里我们可以先把K的集合收集一下</p>
-<pre><code>$ <span class="keyword">cat</span> a.txt b.txt c.txt <span class="keyword">d</span>.txt | awk '{<span class="keyword">print</span> <span class="label">$1}</span>' | <span class="keyword">sort</span> | uniq &gt; tmp.txt
-$ <span class="keyword">cat</span> tmp.txt
-1
-2
-3
-4
-5
-7
-</code></pre><p>把空文件用K集合与0填充：</p>
-<pre><code><span class="keyword">for</span> file <span class="keyword">in</span> a.txt b.txt c.txt d.txt; do
-    <span class="keyword">if</span> [[ ! -s <span class="variable">$file</span> ]]; <span class="keyword">then</span>
-        awk <span class="string">'{print $0" "0}'</span> tmp.txt &gt; <span class="variable">$file</span>
-    fi
-done
-</code></pre><p>空文件d.txt现在变成了：</p>
-<pre><code>$ cat d.txt
-<span class="number">1</span>       <span class="number">0</span>
-<span class="number">2</span>       <span class="number">0</span>
-<span class="number">3</span>       <span class="number">0</span>
-<span class="number">4</span>       <span class="number">0</span>
-<span class="number">5</span>       <span class="number">0</span>
-<span class="number">7</span>       <span class="number">0</span>
-</code></pre><p>再次执行代码：</p>
-<pre><code>awk '
-    FNR == 1 {
-        <span class="keyword">n</span>++;
-    }
-    {
-        a[<span class="label">$1</span>] = 0;
-        b[<span class="label">$1</span><span class="string">","</span><span class="keyword">n</span>] = <span class="label">$2</span>;
-    }
-    END {
-        <span class="keyword">for</span>(k <span class="keyword">in</span> a){
-            printf(<span class="string">"%s\t"</span>, k); 
-            <span class="keyword">for</span>(<span class="keyword">m</span> = 1; <span class="keyword">m</span> &lt;= <span class="keyword">n</span>; <span class="keyword">m</span>++) {
-                printf(<span class="string">"%s\t"</span>, b[k<span class="string">","</span><span class="keyword">m</span>] == <span class="string">""</span> ? 0 : b[k<span class="string">","</span><span class="keyword">m</span>]); 
-            }
-            <span class="keyword">print</span> <span class="string">""</span>;
-        }
-    }
-' a.txt b.txt c.txt <span class="keyword">d</span>.txt | <span class="keyword">sort</span>
-</code></pre><p>结果：</p>
-<pre><code><span class="number">1</span>       <span class="number">234</span>     <span class="number">0</span>       <span class="number">0</span>       <span class="number">0</span>
-<span class="number">2</span>       <span class="number">456</span>     <span class="number">33333</span>   <span class="number">0</span>       <span class="number">0</span>
-<span class="number">3</span>       <span class="number">0</span>       <span class="number">44444</span>   <span class="number">0</span>       <span class="number">0</span>
-<span class="number">4</span>       <span class="number">789</span>     <span class="number">0</span>       <span class="number">890</span>     <span class="number">0</span>
-<span class="number">5</span>       <span class="number">0</span>       <span class="number">0</span>       <span class="number">8324</span>    <span class="number">0</span>
-<span class="number">7</span>       <span class="number">0</span>       <span class="number">0</span>       <span class="number">1111</span>    <span class="number">0</span>
-</code></pre><p>这种方式一个不好的地方是修改了空文件。如果规定空文件不能改变，则一种方式是检查空文件的时候标记一下，等结果出来之后再把被覆盖的空文件置空。如果不希望原始文件被改动，那么我们可以全在awk里完成处理：</p>
-<pre><code>awk '
-    BEGIN {
-        <span class="keyword">for</span>(i = 1; i &lt; ARGC; i++) {
-            file_index_arr[ARGV[i]] = i;
-        }
-    }
-    FNR == 1 {
-        current_index = file_index_arr[FILENAME];
-    }
-    {
-        key_arr[<span class="label">$1</span>] = 0;    <span class="comment">/* 收集 K */</span>
-        kv_arr[<span class="label">$1</span><span class="string">"-"</span>current_index] = <span class="label">$2</span>;    <span class="comment">/* 记录当前文件的当前 K 对应数值 */</span>
-    }
-    END {
-        <span class="keyword">for</span>(key <span class="keyword">in</span> key_arr){
-            printf(<span class="string">"%s\t"</span>, key); 
-            <span class="keyword">for</span>(i = 1; i &lt; ARGC; i++) {
-                printf(<span class="string">"%s\t"</span>, kv_arr[key<span class="string">"-"</span>i] == <span class="string">""</span> ? 0 : kv_arr[key<span class="string">"-"</span>i]); 
-            }
-            <span class="keyword">print</span> <span class="string">""</span>;
-        }
-    }
-' a.txt b.txt c.txt <span class="keyword">d</span>.txt | <span class="keyword">sort</span>
-</code></pre><p>结果：</p>
-<pre><code><span class="number">1</span>       <span class="number">234</span>     <span class="number">0</span>       <span class="number">0</span>       <span class="number">0</span>
-<span class="number">2</span>       <span class="number">456</span>     <span class="number">33333</span>   <span class="number">0</span>       <span class="number">0</span>
-<span class="number">3</span>       <span class="number">0</span>       <span class="number">44444</span>   <span class="number">0</span>       <span class="number">0</span>
-<span class="number">4</span>       <span class="number">789</span>     <span class="number">0</span>       <span class="number">890</span>     <span class="number">0</span>
-<span class="number">5</span>       <span class="number">0</span>       <span class="number">0</span>       <span class="number">8324</span>    <span class="number">0</span>
-<span class="number">7</span>       <span class="number">0</span>       <span class="number">0</span>       <span class="number">1111</span>    <span class="number">0</span>
-</code></pre><p>与第一种方式方式相比，第二种看起来就非常简单。</p>
-
-          
+</code></pre><p>把a b c三个文件合并成一个文件，文件格式为：K A B C。其中，不存在的列值补为0。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/28/AWK实用小记一/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -556,21 +416,15 @@ done
 
       
         
-          
-            <p>凌晨一点将至，却没有丝毫睡意，脑子里一片混乱不堪，就起来坐坐。我最近一段时间的状态大致如此。拿起手机翻开微信，看到了知乎上的一篇问答《博士读的不开心，如何是好？》，很有感触，虽然我没有读博的经历。题主的疑问主要在于读博之后的孤独、烦躁、迷茫感无法排解，下面有同感者众多。不过，其中一位被邀者的回答与众不同，说的很好，大致意思如下：</p>
+          <p>凌晨一点将至，却没有丝毫睡意，脑子里一片混乱不堪，就起来坐坐。我最近一段时间的状态大致如此。拿起手机翻开微信，看到了知乎上的一篇问答《博士读的不开心，如何是好？》，很有感触，虽然我没有读博的经历。题主的疑问主要在于读博之后的孤独、烦躁、迷茫感无法排解，下面有同感者众多。不过，其中一位被邀者的回答与众不同，说的很好，大致意思如下：</p>
 <p>读博期间的低落抑郁是很普遍的，无法避免。读博就像一种修行，一次漫长的旅程，读博的目的不是纯粹为了成为一个做科研的科学家，读博是要把自己修成一个独立的人。</p>
 <p><img src="/images/huoxingxiuxing.jpg" alt="Alt"></p>
-<p>“独立意味着你要在这全新的征途中独自克服一切困难，没有人能告诉你面前的那座山要怎么去翻；独立意味着当你翻过前面的那座山后，无论看到是绿洲还是另一片沙漠，你都只能独自享受，无法同任何人分享。”</p>
-<p>“这条路，你要一个人走！被边缘化、被世界遗弃的感觉会一直陪伴着你，知道你放弃或者走不动了为止。你可能会问，不是还有博士生导师吗？而我要告诉你的事，导师其实就是那个远在56000000公里以外的地球指挥官。他能做的，就是不定期的看你是不是还活着，是不是还继续前进。虽然他可以是不是的为你指引方向，为你提供援助，甚至是在你翻山越岭的时候为你加油鼓气，在你抵达绿洲时为你欢呼雀跃。但每走一步，都要靠你自己。每种苦都要自己吃。更重要的是，当陪伴你一段旅程之后，除了精神上的支持，那个远在56000000公里以外的导师什么都做不了，你终归还是要独立的！”</p>
-<p><img src="/images/diqiuzhihuiguan.png" alt="Alt"></p>
-<p>“这条路上，你不仅要忍耐孤独，还要学会享受孤独。你要练就自娱自乐甚至是自黑的能力。还要寻找不断前进的动力，精神的寄托。”</p>
-<p><img src="/images/zihei.jpg" alt="Alt"></p>
-<p>“当你找到那片绿色时，即使无人可以分享，你也会觉得这一切的一切都是值得的。”</p>
-<p><img src="/images/lvse.jpg" alt="Alt"></p>
-<p>读完这篇，便想到了自己，想到了自己的生活和工作。这又何尝不是一种修行。生活里的无助、工作中的迷茫、对未来的恐惧，时不时的都会冒出来，充斥在本已经乱掉的脑袋里。能做什么呢？求助于他人得来的安慰解决不了内心的问题。这也许就是教育的目的吧，让我们学会在默默前行中享受孤独，在漫长的旅途中欣赏周边的风景，在或死寂沉沉或波涛汹涌的大海中乘坐孤舟，看见天边驶来的那艘船。</p>
-<p><img src="/images/fanchuan.jpg" alt="Alt"></p>
-
-          
+<p>“独立意味着你要在这全新的征途中独自克服一切困难，没有人能告诉你面前的那座山要怎么去翻；独立意味着当你翻过前面的那座山后，无论看到是绿洲还是另一片沙漠，你都只能独自享受，无法同任何人分享。”<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/04/09/生活工作都不开心，该如何是好/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -680,15 +534,14 @@ done
 
       
         
-          
-            <p>逛超市翻看杂志，有一页文章作者是<strong>梁漱溟</strong>，看完觉得不错，小记一下，愿与我共勉。</p>
+          <p>逛超市翻看杂志，有一页文章作者是<strong>梁漱溟</strong>，看完觉得不错，小记一下，愿与我共勉。</p>
 <blockquote>
-<p>在这个时代的青年，能够把自己安排对了的很少。有一个大的欺骗他，或耽误他，容易让他误会的一件事，就是把欲望当志气。这样的用功自然不得其方。也许他很卖力，因为背后存个贪的心，不能不如此。可是他这样卖力气，却很不自然，很苦，且难以长进。当自己勉强自己时，读书做事均难。</p>
-<p>越聪明的人，越容易有欲望，越不知应在哪个地方搁下那个心。心实在应该搁在当下的，可是聪明的人，老是搁不在当下，老往远处跑，烦躁而不宁。所以没有志气的固不用说，就是自以为有志气的，往往不是志气而是欲望。仿佛他期望自己能有成就，要成功怎么个样子，这样不很好吗？无奈在这里常藏着不合适的地方，自己不知道。自己越不宽松，越不能耐，病就越大。</p>
-<p>所以前人讲学，志气欲望之辨很严，必须不是从自己躯壳动念，而念头真切，才是真志气。张横渠先生颇反对欲望，谓民胞物与之心，时刻不能离的。自西洋风气进来，反对欲望的话没人讲，不似以前的严格，殊不知正在这些地方，是自己骗自己害自己。</p>
-</blockquote>
-
-          
+<p>在这个时代的青年，能够把自己安排对了的很少。有一个大的欺骗他，或耽误他，容易让他误会的一件事，就是把欲望当志气。这样的用功自然不得其方。也许他很卖力，因为背后存个贪的心，不能不如此。可是他这样卖力气，却很不自然，很苦，且难以长进。当自己勉强自己时，读书做事均难。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/02/17/别把欲望当志气/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -799,10 +652,16 @@ done
       
         
           
-            <p>今天看了一部电影《灵魂歌王》，讲述的是黑人灵魂乐歌手 Ray Charles 传奇的一生.如果你读到本篇文章，请一定看一看这部电影，听一听 Ray Charles的音乐。</p>
-<p><img src="/images/Ray_Charles_2.jpg" alt="Alt"><br><img src="/images/ray_charles1.png" alt="Alt"><br><img src="/images/raycharles3.jpg" alt="Alt"></p>
+          今天看了一部电影《灵魂歌王》，讲述的是黑人灵魂乐歌手 Ray Charles 传奇的一生.如果你读到本篇文章，请一定看一看这部电影，听一听 Ray Charles的音乐。
+
 
           
+
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/02/17/Ray Charles/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -912,17 +771,15 @@ done
 
       
         
-          
-            <p><img src="/images/hongbao.jpg" alt="Alt"></p>
+          <p><img src="/images/hongbao.jpg" alt="Alt"></p>
 <p>猴年央视春晚不怎么样，红包大战倒是挺热闹。阿里的2.5亿现金诱惑太大，相信集齐五福就能平分2.5亿的人们纷纷在哀求非常稀缺“敬业福”。有意思的是，这种哀求余额宝“敬业福”的消息在微信朋友圈里遍地都是。说到底，阿里是希望用这种方式巩固自己在移动支付领域的地位，帮助用户积累在余额宝里好友关系，并进一步建立和加强自己的社交生态。但最终的效果怎么样呢？</p>
 <p>我们可以看到阿里公布的战绩：除夕夜“咻一咻”总次数达3245亿。在21点09分，“咻一咻”峰值达到210亿次/分钟。最终，共有79.1405万用户集齐了五福，平分2.15亿大奖。</p>
-<p>如果我们仅仅看重数字，那么阿里太牛逼了。只是，在这数字背后，还有些东西值得我们去思考。</p>
-<h3 id="流程比较繁琐">流程比较繁琐</h3><p>集齐五福的规则就很繁琐、太罗嗦，我自己都没耐心看完。求敬业福的连接被微信封杀，只能发文字。整个求福的过程比较累，需要跨应用（从余额宝到微信再到余额宝）。</p>
-<h3 id="活动本身">活动本身</h3><p>虽然达到了全民都求敬业福的目的，但是敬业福的数量却像是一个鸡肋，扔之可惜，食之无味。敬业福就80万，最终集齐五福的有70多万，平均每人270多。对这些人来说，费了那么大劲儿，分得270元还算可以。可是，剩下的好几千万的用户呢？手机都特么快被戳破了，到最后毛也没有，这可问题大了去了。几千万用户连续几天苦苦寻找敬业福，结果却是一场空，有没有一种在猴年被当猴子耍的感觉。这大过年的，把几千万用户得罪个遍，阿里干得漂亮！换一种思路，如果敬业福的数量真的象某些小道消息说的那样（敬业福有千万个，只是因为因为程序的bug导致约千万“敬业福”在最后的时间点没能发出去），并且最终全部发出去了，然后大家都得到了敬业福并且每人平均分得十几块钱，阿里还是会把几千万用户得罪个遍。为什么呢？因为大家分的钱太少了，集齐五福就能平分2.5亿现金的营销口号早已拉高了广大人们群众的心理预期。这有点儿像花钱去电影院看电影，去之前觉得明星加剧情加各种特效大场面肯定不一般，看完却觉得是十足的垃圾。</p>
-<h3 id="基因决定论">基因决定论</h3><p>吴军的《浪潮之巅》这本书历数了硅谷的很多公司从强盛走向没落的过程，并认为公司“基因”决定了它最终的走向。从这一点看来，余额宝注定做不成社交应用，因为它就是个移动支付及其附属服务的app，这一点已经深入到用户的常识里，很难改变。除非阿里单独做一个应用，不要像来往那样抱着和微信正面死磕的心态去做，否则，如果没有太大的差异化，用户为啥会舍弃已经熟悉的东西而使用新的呢。腾讯如果还是基于qq，也可以做成微信，因为它本身的社交生态在那里，只是单独做一个新的微信app显得更彻底一些，可以减少一些掣肘和羁绊。</p>
-<h3 id="小结">小结</h3><p>阿里在社交方面的积累与腾讯相比差的不是一点儿半点儿啊。我也只能这么说了。</p>
-
-          
+<p>如果我们仅仅看重数字，那么阿里太牛逼了。只是，在这数字背后，还有些东西值得我们去思考。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/02/17/阿里的社交诉求/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1032,15 +889,13 @@ done
 
       
         
-          
-            <p><img src="/images/clipboard.jpg" alt="Alt"></p>
-<p>百度贴吧最近太火，稳稳的占据了2016年1月份的头条。一个是因为“血友病吧”被卖，另外一个便是“帝吧FB出征”了。这个说来也很好玩儿。百度前几天还因为变卖“血友病吧”被各路媒体口诛笔伐，大有人人杀之而后快之势，突然之间一个“台湾大选+周子瑜+黄安“所引发的的网友狂吠潮立即掩盖了这一切，其中“帝吧出征FB”便是这其中最具代表性的。这么看来，百度贴吧很幸运，被自己救了一把。</p>
-<p>事情的起因大概是标榜<strong>“爱国反台独”</strong>的黄安在微博上举报台湾艺人周子瑜有台独言论，导致大陆的爱国青年们玻璃心碎了一地并在网络上极尽谴责、谩骂之要事。接着周子瑜在网上发了道歉视频，强调“只有一个中国”。本来事情到这儿就该告一段落了，可偏偏这个时候大陆的一个艺人转发了这段视频并做了评论。这一下台湾网友忍不了了，不带这么欺负人的，新一轮口诛笔伐开始。既然台湾网友沸腾了，那大陆网友更不能示弱啊。于是，整个网络充斥着各种骂战表情包、各种歌唱祖国、各种八荣八耻、各种余光中的乡愁、各种祖国的大好河山。。。。。。大陆网友为表爱国之心、反台独之志，在贴吧的帝吧（原来叫李毅大帝吧）里约定一起翻墙到facebook，进行有组织、有纪律、不准骂脏话的反台独行动。看到里面的对话，我也是醉了，不得不佩服前仆后继的爱国青年和网络的力量。这里就po张图，详情见<a href="http://www.admin5.com/article/20160121/644231.shtml" target="_blank" rel="external">“帝吧FB出征，寸草不生”的来龙去脉</a></p>
-<p><img src="/images/fantaidu.jpg" alt="fantaidu.jpg"></p>
-<p>和之前的群体性事件一样，它们总会让我想到之前看过的两本书，一本是《乌合之众》，另一本是《失控》。虽然文明一直在进步，但“乌合之众”却一直存在，“蝴蝶效应”也不会消失。一个个无组织的临时性的个体聚集在一起的时候，便形成了一个有思想的群体、一股不容忽视的强大的力量。在这个群体里，充斥着极端化、情绪化、低智商化、排斥异议的气息，个体的个性被湮没，群体的思想占据着统治性地位。这也让我想到了十字军东征，想到了太平天国，想到了文革十年，想到了一群群无知、善良的人们挥舞着银色大棒作恶的画面，想到了被湮没在历史洪流中的大人物、小人物。</p>
-<p>虽然改变不了什么，但可以保持清醒的头脑。</p>
-
-          
+          <p><img src="/images/clipboard.jpg" alt="Alt"></p>
+<p>百度贴吧最近太火，稳稳的占据了2016年1月份的头条。一个是因为“血友病吧”被卖，另外一个便是“帝吧FB出征”了。这个说来也很好玩儿。百度前几天还因为变卖“血友病吧”被各路媒体口诛笔伐，大有人人杀之而后快之势，突然之间一个“台湾大选+周子瑜+黄安“所引发的的网友狂吠潮立即掩盖了这一切，其中“帝吧出征FB”便是这其中最具代表性的。这么看来，百度贴吧很幸运，被自己救了一把。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/20/帝吧FB出征，寸草不生/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1150,20 +1005,13 @@ done
 
       
         
-          
-            <p>我的iPad从买回来到现在有将近两年的时间，主要用来看视频、玩游戏、购物，偶尔会被当成阅读器来看看新闻或电子书。因为爱惜，所以买回来之后就给它套了一个黑色的保护壳，安全感倍增。这让我想起小时候每学期开学发新书后，回到家都会用牛皮纸把书皮包起来，心中的幸福感油然而生，并会鼓励自己新学期要好好学习，你看这书多新啊。</p>
-<p>因为一直套着黑色保护壳，也习惯了拿在手里的感觉。最近要给它换一身新衣服，暂时把黑色外衣脱掉了。当我再次看它的时候，突然有焕然一新的感觉，比小时候把书本上包的书皮儿去掉后还要兴奋很多倍。正面是白色边框，中间的屏幕显得更大了，背面是银灰色。去掉外壳后，整体上变得小巧了，手感很好，有点滑滑的、沙沙的感觉。适应保护壳之后就再也没有体验它原始的外在美了。在安全和原始外在美之间，我选择了前者。</p>
-<p>这也像我们的生活。最初的梦想很美好，但在面对各种现实的时候，又不断的选择妥协与苟且。梦想在一次次的无奈与妥协中变得暗淡起来，我们在追逐梦想的道路上迷失了，最初的那个自己不见了。</p>
-<p>上中学写作文总喜欢用这段话：</p>
-<blockquote>
-<p>人最宝贵的是生命,生命每人只有一次,人的一生应当这样度过：当他回忆往事的时候,他不会因为虚度年华而悔恨；也不会因为碌碌无为而羞愧,当他临死的时候,他能够说：我的整个生命和全部精力,都献给了世界上最壮丽的事业——为解放全人类而斗争。</p>
-</blockquote>
-<p>后来看少林足球，觉得周星驰说的那句话也不错：</p>
-<p><img src="/images/xianyu.jpeg" alt="Alt"></p>
-<p>我们可以选择安全感，给自己包上一层又一层保护壳，贴上一层又一层保护膜。也可以选择去追逐梦想，找回最初的自己，能够在回想往事的时候不觉得虚度此生，能够对自己说我的生命和全部精力都献给了最初的那个自己、最初的那个梦想。</p>
-<p>其实，有了梦想不去追逐，和咸鱼也没有什么分别。</p>
-
-          
+          <p>我的iPad从买回来到现在有将近两年的时间，主要用来看视频、玩游戏、购物，偶尔会被当成阅读器来看看新闻或电子书。因为爱惜，所以买回来之后就给它套了一个黑色的保护壳，安全感倍增。这让我想起小时候每学期开学发新书后，回到家都会用牛皮纸把书皮包起来，心中的幸福感油然而生，并会鼓励自己新学期要好好学习，你看这书多新啊。</p>
+<p>因为一直套着黑色保护壳，也习惯了拿在手里的感觉。最近要给它换一身新衣服，暂时把黑色外衣脱掉了。当我再次看它的时候，突然有焕然一新的感觉，比小时候把书本上包的书皮儿去掉后还要兴奋很多倍。正面是白色边框，中间的屏幕显得更大了，背面是银灰色。去掉外壳后，整体上变得小巧了，手感很好，有点滑滑的、沙沙的感觉。适应保护壳之后就再也没有体验它原始的外在美了。在安全和原始外在美之间，我选择了前者。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/17/从iPad保护壳说起/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1273,94 +1121,17 @@ done
 
       
         
-          
-            <p>下面的内容基本都是参考Gearman的官方文档。详情请见<a href="gearman.org">gearman.org</a></p>
+          <p>下面的内容基本都是参考Gearman的官方文档。详情请见<a href="gearman.org">gearman.org</a></p>
 <h3 id="什么是Gearman">什么是Gearman</h3><p>Gearman是一个分布式任务调度框架，最早在 <a href="livejournal.com">livejournal.com</a> 用于分布式文件存储系统、MogileFS的协调机制等。“gearman”这个名字的来历也挺有意思。之所以叫“gearman”，是因为它是“manager”被颠倒字母顺序后组成的一个单词。为什么在manager颠倒字母后的多个单词中单单选中“gearman”，我想是因为“gear”有传动装置、协调的意思，“man”就是一个人，加一起就是一个协调者，传动者。Gearman就像一个manager，自己不做具体工作，而是分发任务给下属。</p>
 <p>下面截取一段gearman官方网站给出的介绍：</p>
 <blockquote>
 <p>Gearman provides a generic application framework to farm out work to other machines or processes that are better suited to do the work. It allows you to do work in parallel, to load balance processing, and to call functions between languages. It can be used in a variety of applications, from high-availability web sites to the transport of database replication events. In other words, it is the nervous system for how distributed processing communicates.</p>
 </blockquote>
-<p>翻译过来就是：Gearman是一个通用的应用框架，它可以把任务分发到专门处理这些任务的节点上（处理任务的进程或机器）。它可以并行的处理任务、处理任务时做负载均衡，并且支持多语言之间的函数调用。可以用于从高可用web站点到数据库备份传输等一系列的应用场景中。它相当于一个神经系统，用来决定分布式处理程序之间的通信细节。</p>
-<h3 id="Gearman是如何工作的">Gearman是如何工作的</h3><p>Gearman总共分为三个部分：</p>
-<ol>
-<li>client：产生task，并把task提交给job server</li>
-<li>job server：接收client提交的task，找到相应的worker，并把task交给worker执行，把worker返回的结果返回给client</li>
-<li>worker：接收来自job server分发的task，执行，返回结果给job server</li>
-</ol>
-<p><img src="/images/gearman.png" alt="Alt Gearman框架结构图"></p>
-<p>下面是一个例子：<em>通过gearman实现字符串反转功能。</em></p>
-<p>客户端代码实现：<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//初始化客户端</span><br><span class="line"><span class="variable">$client</span> = new GearmanClient();  </span><br><span class="line">//绑定job server，这里job server是本机</span><br><span class="line"><span class="variable">$client-</span>&gt;addServer(<span class="string">'127.0.0.1'</span>, <span class="string">'4730'</span>);  </span><br><span class="line">//客户端发送调用请求，函数是reverse，参数是<span class="string">"hello world"</span>字符串。</span><br><span class="line">print <span class="variable">$client-</span>&gt;do(<span class="string">'reverse'</span>, <span class="string">'hello world'</span>);</span><br></pre></td></tr></table></figure></p>
-<p>这里客户端会把调用请求发送给job server，发送时，会把请求的数据（包括函数名和参数）按照gearman的包协议打包，然后再发送给job server。函数名和参数对于gearman可以是任意的。</p>
-<p>worker代码实现：<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//初始化worker</span><br><span class="line"><span class="variable">$worker</span> = new GearmanWorker(); </span><br><span class="line">//绑定job server，这里job server是本机（注册worker，job server会记录worker来源）</span><br><span class="line"><span class="variable">$worker-</span>&gt;addServer(<span class="string">'127.0.0.1'</span>, <span class="string">'4730'</span>); </span><br><span class="line">//定义一个反转字符串的函数，并注册名为reverse</span><br><span class="line">//job server会记录这个worker注册了reverse函数</span><br><span class="line"><span class="variable">$worker-</span>&gt;addFunction(<span class="string">"reverse"</span>, <span class="keyword">function</span>(<span class="variable">$job</span>) &#123;</span><br><span class="line">     return strrev(<span class="variable">$job-</span>&gt;workload());</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">while</span>(<span class="variable">$worker-</span>&gt;work()); //等待client的请求</span><br></pre></td></tr></table></figure></p>
-<p>把worker代码运行起来，客户端发送请求后会输出”hello world”.</p>
-<p><img src="/images/reverse_example.png" alt="Alt 实例图"></p>
-<h3 id="Gearman的使用方式">Gearman的使用方式</h3><ul>
-<li>多语言支持：<em>you can use Gearman as an interface between a client and a worker written in different languages.</em></li>
-<li>负载均衡、部署方式：<em>put the worker code on a separate machine (or cluster of machines) that are better suited to do the work. 比如收到图片处理的请求后，可以在单独的机器上做图片处理工作。 you also get a natural form of load balancing since the job server only sends new jobs to idle workers. If all the workers running on a given machine are busy, you don’t need to worry about new jobs being sent there.</em> </li>
-<li>可扩展性：worker机器可伸缩。<em>It is also seamless to add new machines to expand your worker pool, just boot them up, install the worker code, and have them connect to the existing job server. </em></li>
-<li>容错性，避免单点故障。<em>what if the job server dies? You are able to run multiple job servers and have the clients and workers connect to the first available job server they are configured with. This way if one job server dies, clients and workers automatically fail over to another job server. You probably don’t want to run too many job servers, but having two or three is a good idea for redundancy. </em></li>
-</ul>
-<p><img src="/images/gearman_deploy.png" alt="Alt gearman部署结构图"></p>
-<h3 id="Gearman的安装与管理">Gearman的安装与管理</h3><h4 id="Job_Server">Job Server</h4><p>首先我们安装Job Server。去<a href="http://gearman.org/download/" target="_blank" rel="external">官方网站</a>下载稳定tar包，然后编译安装。</p>
-<pre><code>tar xzf gearmand-X<span class="class">.Y</span><span class="class">.tar</span><span class="class">.gz</span>
-cd gearmand-X<span class="class">.Y</span>
-./configure
-make
-make install
-</code></pre><p>启动Job Server：</p>
-<pre><code>gearmand <span class="operator">-d</span>
-</code></pre><h4 id="Client和Worker_API">Client和Worker API</h4><p>Gearmand启动后，接下来就是选择client和worker api。文档中介绍了两种方式：一种是命令行工具，另一种是php扩展。</p>
-<p>首先我们看下命令行工具。</p>
-<h5 id="Command_Line_Tool">Command Line Tool</h5><p>在安装gearman的Job Server时，会包含gearman的命令行工具。我们可以启动一个gearman worker。</p>
-<pre><code>gearman -w <span class="operator">-f</span> wc -- wc <span class="operator">-l</span>
-</code></pre><p>gearman -w 表示以worker方式执行，-f表示函数。这里，worker将会连接本地(localhost)的job server，并向job server注册一个名为 <em>wc</em> 的函数（函数的具体实现就是 <em>wc -l</em> ）。当当worker收到job server转发过来的job时，就开始执行 <em>wc -l</em> 命令。</p>
-<pre><code>gearman <span class="operator">-f</span> wc &lt; /etc/passwd
-<span class="number">27</span>
-</code></pre><p>gearman去掉 -w选项后，就表示以client方式执行。这里，client会提交一个job到本地（localhost）的job server，job就是执行<em>wc</em>函数，传入的参数就是/etc/passwd。最终就相当于执行：</p>
-<pre><code>wc <span class="operator">-l</span> /etc/passwd
-</code></pre><p>上述的command line tool的例子中，job server、client、worker都是在同一台机器上运行。它们也可以分散到不同的机器上。Command Line Tool在分布式领域应用 很广泛，比如快速原型搭建、分布式集群管理工具、分发shell脚本到不同机器上做处理（比如日志分析）等等。</p>
-<h5 id="PHP扩展">PHP扩展</h5><p>在 <a href="http://pecl.php.net/package/gearman" target="_blank" rel="external">PECL</a>上下载gearman的php扩展包。然后安装：</p>
-<pre><code>tar xzf gearman-X<span class="class">.Y</span><span class="class">.tgz</span>
-cd gearman-X<span class="class">.Y</span>
-phpize
-./configure
-make
-make install
-</code></pre><p>安装完成后，把gearman.so添加到php.ini中</p>
-<pre><code><span class="attribute">extension</span>=<span class="string">gearman.so</span>
-</code></pre><p>测试一下gearman的php接口是否正常</p>
-<pre><code><span class="php"><span class="preprocessor">&lt;?php</span>
-<span class="keyword">print</span> gearman_version() . <span class="string">"\n"</span>;
-<span class="preprocessor">?&gt;</span></span>
-</code></pre><p>运行：</p>
-<pre><code>/usr/local/php/bin/php test.php
-<span class="number">1.1</span><span class="number">.12</span>
-</code></pre><p>下面是一个基于gearman php扩展的例子。<br>worker实现的功能：接收一个字符串，返回这个字符串的倒序结果。<br><em>worker.php</em></p>
-<pre><code>&lt;?php
-<span class="variable">$worker</span>= new GearmanWorker();
-<span class="variable">$worker-</span>&gt;addServer();
-<span class="variable">$worker-</span>&gt;addFunction(<span class="string">"reverse"</span>, <span class="string">"my_reverse_function"</span>);
-//一直会等待job server分发过来的task，一旦有任务过来，就开始执行my_reverse_function
-<span class="keyword">while</span> (<span class="variable">$worker-</span>&gt;work()); 
-
-<span class="keyword">function</span> my_reverse_function(<span class="variable">$job</span>) {
-  return strrev(<span class="variable">$job-</span>&gt;workload());
-}
-?&gt;
-</code></pre><p>启动worker</p>
-<pre><code><span class="regexp">/usr/</span>local<span class="regexp">/php/</span>bin<span class="regexp">/php worker.php</span>
-</code></pre><p>client实现功能：向job server提交task，调用reverse函数，参数为“hello world”.<br><em>client.php</em></p>
-<pre><code>&lt;?php
-<span class="variable">$client</span>= new GearmanClient();
-<span class="variable">$client-</span>&gt;addServer();
-print <span class="variable">$client-</span>&gt;do(<span class="string">"reverse"</span>, <span class="string">"Hello World!"</span>);
-?&gt;
-</code></pre><p>运行client</p>
-<pre><code><span class="regexp">/usr/</span>local<span class="regexp">/php/</span>bin/php client.php
-!dlroW olleH
-</code></pre><h3 id="最后">最后</h3><p>Gearman官方网站上面有更详细的说明和应用实例。</p>
-
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/10/Gearman/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1470,33 +1241,15 @@ print <span class="variable">$client-</span>&gt;do(<span class="string">"reverse
 
       
         
-          
-            <p>2015年读过的几本书，有好有坏，有的印象深刻，有的读过也就没有啥印象了，在这里略记一下吧。</p>
+          <p>2015年读过的几本书，有好有坏，有的印象深刻，有的读过也就没有啥印象了，在这里略记一下吧。</p>
 <h3 id="《台湾四百年》">《台湾四百年》</h3><p>这本介绍台湾历史兴衰的书，短而精，又不失全面。书中没有谩骂、没有同情、没有强烈的爱国主义，有的只是娓娓道来的台湾历史。我 <strong>dang</strong> 喊了那么多年的统一口号，在普通民众当中，得来的有民族主义者的激动和狂欢、有模糊不清者的附和，却少了真正认识台湾前世今生的清醒者。</p>
 <p>台湾最开始是和大陆板块连在一起，板块运动使二者最终形成了现在的地理格局。唐宋开始，官方已有对台湾的记载。随着海上贸易的增多，福建漳州、泉州等地的先民逐渐与台湾岛产生联系，从台湾南部登陆，并慢慢定居下来，与原住民也渐渐融合。然后经历海盗、倭寇、欧洲侵略者等等一系列漫长的历史。明末，郑成功打跑了荷兰人，开始了对台湾的统治。</p>
-<p>从大陆过去的先民大多是漳泉两州的商贩和海上贸易从业者，宗族观念很强，文化水平不高，接受正统士大夫文化和教育的人比较少，缺乏绅士阶层和上层文化的熏陶。加上清朝康熙年间收复台湾之后，对台湾的政治地位比较敏感，并没有设立行省，而是附属于福建省，上层文化的输入仍然较少。到了清中晚期，台湾才被设立省份。总体来说，台湾人对“中国”的文化认同感不是特别强烈。</p>
-<p>后来清政府势弱渐衰，甲午战败后，日本占领台湾。日据时期，台湾对于日本，更多的是物质资源的补充和再加工。不过由于教育日化，日本对台湾的文化输入影响比较大（现在的台湾还是有一些日本的影子），这使台湾人对“中国”的认同感进一步降低。当然，台湾人作为二等公民，与统治者也发生了一些冲突，著名的电影《赛德克巴莱》讲述的就是雾都事件——台湾原住民反抗日本统治者的故事。曾经的“亚细亚的孤儿”、“二等公民”，不知道自己应该属于谁，归属感逐渐模糊。原住民的感觉与此类似，听胡德夫《牛背上的小孩》、《美丽岛》、《太平洋的风》等等，就能深切的感受到这一点。</p>
-<p>1945年抗战胜利后，国民党派将领陈仪接管了台湾。日据时期，台湾人在日本统治者的威逼下还是比较能够忍气吞声、遵纪守法的。光复之后，台湾民众一片欣喜，准备迎接来自祖国的亲人，但事实却令人无比心寒。在台湾人眼里，陈仪到台湾之后的流氓行径、压迫程度比日本人更甚。“二二八事件”爆发后，国民党派军镇压，从南部进入台湾，由于不懂闽南语，冲突进一步增强。台湾民众、特别是南部的民众对大陆人的反抗程度更甚。</p>
-<p>从古代到今天，台湾南部的民众更多关注的、也不得不关注的是生存、族群之间的利益纷争，对自身利益的诉求，而对国家的认同感在逐渐降低。即使是台湾在80、90年代逐渐开放报禁、施行民主之后，台湾南部的民众仍然对从大陆过来的国民党抱有不可原谅的怨恨。以至于直到现在，国民党每年在“二二八事件”这一天都要向南部民众道歉。这也是目前“绿营”反国民党拥民进党的根本原因。</p>
-<p>如上述，这便是我读这本书之后的理解和收获吧。</p>
-<h3 id="《月光落在左手上》">《月光落在左手上》</h3><p>我本不是什么文艺青年。除了高中语文课上学过几首现代诗之外，基本没有看过什么诗集。买于秀华的这本书，仅仅是基于好奇，基于对媒体的集中曝光的好奇，基于对一位残疾诗人内心世界的好奇。</p>
-<p>整本书读下来，对我来说，于秀华的诗并不怎么优美或吸引人。不过有些诗里面的思绪还是很飘逸的，乡野气息中弥漫着对冲破藩篱的向往与冲动。总之，于秀华是值得我佩服和尊敬的一位，她的书也值得一看。</p>
-<p>只是，大众对这件事情的追逐，更多的是因为媒体的推波助澜而产生的猎奇心理，我不得不承认自己也是其中的一员。只有等一切喧嚣平静的时候，于秀华才是真正的于秀华。</p>
-<h3 id="《罗辑思维：成大事者不纠结》">《罗辑思维：成大事者不纠结》</h3><blockquote>
-<p>过往不恋，时而不杂，未来不迎</p>
-</blockquote>
-<p>罗胖的《罗辑思维》看过几集，感觉人很博学，思维清晰，表达流利。《成大事者不纠结》这一集看过，当时有印象，然后就不了了之。后来又看到这本书，就决定买来看看了。</p>
-<p>本书主要说的就是开头引入的那句“过往不恋，时而不杂，未来不迎”，强调专注于当下。分别从正面举了曾国藩、反面张之洞、张廷玉、嘉庆等人的例子来说明为什么成大事者不能纠结，如何不纠结，纠结会怎样的问题。从书中可以看出，罗胖受清史、特别是《曾国藩的正面与侧面》这本书的影响比较大。只是有些论述比较牵强，感觉与本书主题无关。</p>
-<p>总体不错，可重复读之。</p>
-<hr>
-<p>知乎上、媒体上看到有对罗胖和罗辑思维的质疑，貌似也有一定道理。即使如此，我觉得还是要一分为二的看待这件事情。</p>
-<h3 id="《鱼羊野史》一、二卷">《鱼羊野史》一、二卷</h3><p>高晓松真是博学，要是长的再帅点儿就好了。很多不为人知的东西展现了出来。不过感觉这本书就像是肥皂泡，看完之后印象不深。买了两本，另外一本不太想看了。不建议读这种大杂烩的书。另外，感觉好多篇幅都是为了凑数的。</p>
-<p>与《鱼羊野史》相比，更喜欢高晓松的《晓松奇谈》系列，特别是民国历史系列再一次颠覆了我的历史观。</p>
-<h3 id="《文化苦旅》">《文化苦旅》</h3><p>原来读过开头几篇，觉得不错。后来看到有本书专门骂余秋雨，说他明明是“梁效”成员但却死不承认，就顿觉失望，不再读他了。最近又翻到这本书的后面几篇，感觉应该把中间的几篇也读完。读了又发现前后文章很类似，只是变了变地点。整本书充满了浓浓的人文关怀，有对历史、传统与现代文明的冲突的思考，还不错。在抒情这方面，有的文章略有牵强，用“文人骚客”这个词解释刚刚好。 </p>
-<h3 id="《解忧杂货店》">《解忧杂货店》</h3><p>当一个人把烦恼说给你听，并向你询问意见的时候，他/她心里可能已经有了自己的答案。这样做的目的，只是想从你的回答中更加坚定自己的想法和观点。 很多时候，我们的观点对某个人的影响可能不是最好的。但时间一直向前，我们无法重新来过。我们唯一能做的，就是彼此之间提供一个可以倾诉、倾听的对象，让倾诉者有一个更加清晰的想法。 </p>
-<p>东野圭吾的这本书很不错。对我这种没有看过科幻的人来说，立意比较新奇，几个故事之间的连接很巧妙。</p>
-
-          
+<p>从大陆过去的先民大多是漳泉两州的商贩和海上贸易从业者，宗族观念很强，文化水平不高，接受正统士大夫文化和教育的人比较少，缺乏绅士阶层和上层文化的熏陶。加上清朝康熙年间收复台湾之后，对台湾的政治地位比较敏感，并没有设立行省，而是附属于福建省，上层文化的输入仍然较少。到了清中晚期，台湾才被设立省份。总体来说，台湾人对“中国”的文化认同感不是特别强烈。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/01/2015年读过的几本书/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1607,9 +1360,15 @@ print <span class="variable">$client-</span>&gt;do(<span class="string">"reverse
       
         
           
-            <p>gdb下调试程序：<br>gcc -c -g painter_parser.c 生成painter_parser.o文件<br>gcc -o painter_parser.exe painter_parser.o 生成painter_parser.exe文件<br>gdb painter_parser 进入gdb调试环境</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">l 浏览代码</span><br><span class="line">回车 向下继续浏览代码</span><br><span class="line">l <span class="number">1</span> 回到第一行</span><br><span class="line"><span class="keyword">break</span> <span class="number">23</span> 在第<span class="number">23</span>行设置断点</span><br><span class="line">r 运行</span><br><span class="line">p 变量  输出变量值</span><br><span class="line">bt 打印当前堆栈所有信息</span><br><span class="line">n 继续运行下一行代码</span><br><span class="line">s 进入到函数中</span><br><span class="line">finish 跳出函数</span><br><span class="line">c 跳到下一个断点</span><br><span class="line">q 退出</span><br></pre></td></tr></table></figure>
-          
+          gdb下调试程序：gcc -c -g painter_parser.c 生成painter_parser.o文件gcc -o painter_parser.exe painter_parser.o 生成painter_parser.exe文件gdb painter_parser 进入gdb调试环境
+
+          ...
+
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/12/19/gdb调试备忘/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
