@@ -187,6 +187,15 @@
 
     
     
+      
+      
+        
+        
+        
+      
+
+      
+    
 
     
       
@@ -211,7 +220,7 @@
               
                 
                 <a class="post-title-link" href="/2016/07/28/AWK实用小记一/" itemprop="url">
-                  AWK实用小记一
+                  awk实现多文件按列合并
                 </a>
               
             
@@ -272,7 +281,13 @@ $ cat c.txt
 7 1111
 把a b c三个文件合并成一个文件，文件格式为：K A B C。其中，不存在的列值补为0。
 用awk来处理文本：
-123456789101112131415161718awk '    FNR == 1 &#123;        n++;    &#12
+awk '
+    FNR == 1 {
+        n++;
+    }
+    {
+        a[$1] = 0;
+      
             ...
           </span>
           <div class="post-more-link text-center">
