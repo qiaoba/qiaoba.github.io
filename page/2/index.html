@@ -1,5 +1,11 @@
 <!doctype html>
-<html class="theme-next   use-motion ">
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -21,18 +27,45 @@
 
 
 
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
 
-  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
 
 
 
 <link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="Hexo, NexT" />
@@ -44,7 +77,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
 
 
 
@@ -64,10 +97,16 @@
 
 
 <script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
   var CONFIG = {
-    scheme: 'Mist',
-    sidebar: 'hide',
-    motion: true
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
   };
 </script>
 
@@ -76,15 +115,6 @@
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
-  <!--[if lte IE 8]>
-  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
-    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
-      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
-           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
-           style='margin-left:auto;margin-right:auto;display: block;'/>
-    </a>
-  </div>
-<![endif]-->
   
 
 
@@ -92,9 +122,18 @@
 
 
 
-  <div class="container one-column 
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left 
    page-home 
-">
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -123,25 +162,15 @@
   
 
   
-    <ul id="menu" class="menu ">
+    <ul id="menu" class="menu">
       
         
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
-            
-            归档
           </a>
         </li>
       
@@ -149,24 +178,33 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories" rel="section">
             
-              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
             分类
           </a>
         </li>
       
         
-        <li class="menu-item menu-item-commonweal">
-          <a href="/404.html" rel="section">
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-heartbeat fa-fw"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            公益404
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
           </a>
         </li>
       
 
-      
       
     </ul>
   
@@ -179,20 +217,10 @@
 
     <main id="main" class="main">
       <div class="main-inner">
-        <div id="content" class="content">
-          
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
   <section id="posts" class="posts-expand">
-
-    
-
-    
-    
-      
-      
-
-      
-    
-
     
       
 
@@ -225,7 +253,10 @@
 
         <div class="post-meta">
           <span class="post-time">
-            发表于
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
             <time itemprop="dateCreated" datetime="2015-12-19T08:35:52+08:00" content="2015-12-19">
               2015-12-19
             </time>
@@ -233,7 +264,11 @@
 
           
             <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                   <a href="/categories/mysql/" itemprop="url" rel="index">
@@ -250,41 +285,46 @@
 
           
             
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/12/19/mysql连接数问题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/19/mysql连接数问题/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
           
 
           
 
+          
+          
+
+          
         </div>
       </header>
     
 
 
-    <div class="post-body">
+    <div class="post-body" itemprop="articleBody">
 
       
       
 
       
         
-          <span itemprop="articleBody">
-            
-            最近在跑一个shell脚本，大概的流程是：1234从hive拉取数据到一个文件把步骤1的文件切分成100个子文件启动300个子进程，传入子文件做参数，每个进程都会调用一个后端的php脚本，来处理子文件。处理过程比较复杂，会涉及到多个读、写操作
-开始运行后，日志里出现部分sql执行失败的情况。出错的sql既有写操作语句，也有读操作语句。首先怀疑是不是sql本身的问题。把sql拿出来在mysql client上执行都是可以的。排除这种了可能性，那就只能是调用mysql时出现错误了。mysql进程还在，手动执行sql正常。由于后端php脚本操作数据库的lib封装时log没有输出错误码，所以从日志中也
-            ...
-          </span>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/19/mysql连接数问题/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <p>最近在跑一个shell脚本，大概的流程是：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">从hive拉取数据到一个文件</span><br><span class="line">把步骤<span class="number">1</span>的文件切分成<span class="number">100</span>个子文件</span><br><span class="line">启动<span class="number">300</span>个子进程，传入子文件做参数，每个进程都会调用一个后端的php脚本，来处理子文件。</span><br><span class="line">处理过程比较复杂，会涉及到多个读、写操作</span><br></pre></td></tr></table></figure></p>
+<p>开始运行后，日志里出现部分sql执行失败的情况。出错的sql既有写操作语句，也有读操作语句。<br>首先怀疑是不是sql本身的问题。把sql拿出来在mysql client上执行都是可以的。排除这种了可能性，那就只能是调用mysql时出现错误了。mysql进程还在，手动执行sql正常。由于后端php脚本操作数据库的lib封装时log没有输出错误码，所以从日志中也不能直接看出来是什么错误。再去看下mysql的状态。</p>
+<p>先看下是否有慢查询导致mysql响应不过来？ 没有。<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="header">mysql&gt; show status like '%slow%';</span><br><span class="line">+---------------------+-------+</span></span><br><span class="line"><span class="header">| Variable_name | Value |</span><br><span class="line">+---------------------+-------+</span></span><br><span class="line">| Slow<span class="emphasis">_launch_</span>threads | 0 |</span><br><span class="line"><span class="header">| Slow_queries | 0 |</span><br><span class="line">+---------------------+-------+</span></span><br></pre></td></tr></table></figure></p>
+<p>再看下是否因为锁表导致不能响应？<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Table_locks_waited为<span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<p>再看是否是连接的问题？<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show status like '%connect%';</span><br><span class="line">+-----------------------------------------------+-------+</span><br><span class="line">|<span class="string"> Variable_name </span>|<span class="string"> Value </span>|</span><br><span class="line">+-----------------------------------------------+-------+</span><br><span class="line">|<span class="string"> Aborted_connects </span>|<span class="string"> 21 </span>|</span><br><span class="line">|<span class="string"> Connection_errors_accept </span>|<span class="string"> 0 </span>|</span><br><span class="line">|<span class="string"> Connection_errors_internal </span>|<span class="string"> 0 </span>|</span><br><span class="line">|<span class="string"> Connection_errors_max_connections </span>|<span class="string"> 608 </span>|</span><br><span class="line">|<span class="string"> Connection_errors_peer_address </span>|<span class="string"> 0 </span>|</span><br><span class="line">|<span class="string"> Connection_errors_select </span>|<span class="string"> 0 </span>|</span><br><span class="line">|<span class="string"> Connection_errors_tcpwrap </span>|<span class="string"> 0 </span>|</span><br><span class="line">|<span class="string"> Connections </span>|<span class="string"> 7277 </span>|</span><br><span class="line">|<span class="string"> Max_used_connections </span>|<span class="string"> 150 </span>|</span><br><span class="line">|<span class="string"> Performance_schema_session_connect_attrs_lost </span>|<span class="string"> 0 </span>|</span><br><span class="line">|<span class="string"> Ssl_client_connects </span>|<span class="string"> 0 </span>|</span><br><span class="line">|<span class="string"> Ssl_connect_renegotiates </span>|<span class="string"> 0 </span>|</span><br><span class="line">|<span class="string"> Ssl_finished_connects </span>|<span class="string"> 0 </span>|</span><br></pre></td></tr></table></figure></p>
+<p>这里面的Max_used_connections表示mysql收到的最大连接数。再看mysql配置中支持的最大连接数是多少？151<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like '%connect%';</span><br><span class="line">+-----------------------------------------------+-------------------+</span><br><span class="line">|<span class="string"> Variable_name </span>|<span class="string"> Value </span>|</span><br><span class="line">+-----------------------------------------------+-------------------+</span><br><span class="line">|<span class="string"> character_set_connection </span>|<span class="string"> latin1 </span>|</span><br><span class="line">|<span class="string"> collation_connection </span>|<span class="string"> latin1_swedish_ci </span>|</span><br><span class="line">|<span class="string"> connect_timeout </span>|<span class="string"> 10 </span>|</span><br><span class="line">|<span class="string"> disconnect_on_expired_password </span>|<span class="string"> ON </span>|</span><br><span class="line">|<span class="string"> init_connect </span>|<span class="string"> </span>|</span><br><span class="line">|<span class="string"> max_connect_errors </span>|<span class="string"> 100 </span>|</span><br><span class="line">|<span class="string"> max_connections </span>|<span class="string"> 151 </span>|</span><br><span class="line">|<span class="string"> max_user_connections </span>|<span class="string"> 0 </span>|</span><br><span class="line">|<span class="string"> performance_schema_session_connect_attrs_size </span>|<span class="string"> 512 </span>|</span><br><span class="line">+-----------------------------------------------+-------------------+</span><br></pre></td></tr></table></figure></p>
+<p>最大连接数是151. 操作mysql的进程数300，超过了mysql的最大连接数而导致部分连接请求失败。调整一下max_connection参数试一下。（这里也可以修改mysql的my.cnf配置文件重启后生效）<br>mysql&gt; set GLOBAL max_connections=1000;</p>
+<p>重新运行批处理脚本，日志中错误消失。</p>
+
+          
         
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
       
     </div>
 
@@ -333,7 +373,10 @@
 
         <div class="post-meta">
           <span class="post-time">
-            发表于
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
             <time itemprop="dateCreated" datetime="2015-12-13T00:34:30+08:00" content="2015-12-13">
               2015-12-13
             </time>
@@ -343,44 +386,47 @@
 
           
             
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/12/13/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/13/hello-world/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
           
 
           
 
+          
+          
+
+          
         </div>
       </header>
     
 
 
-    <div class="post-body">
+    <div class="post-body" itemprop="articleBody">
 
       
       
 
       
         
-          <span itemprop="articleBody">
-            
-            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new post1$ hexo new "My New Post"
-More info: Writing
-Run server1$ hexo server
-More in
-            ...
-          </span>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/13/hello-world/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+
+          
         
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
       
     </div>
 
@@ -429,7 +475,10 @@ More in
 
         <div class="post-meta">
           <span class="post-time">
-            发表于
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
             <time itemprop="dateCreated" datetime="2015-12-13T00:00:00+08:00" content="2015-12-13">
               2015-12-13
             </time>
@@ -437,7 +486,11 @@ More in
 
           
             <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                   <a href="/categories/DSL/" itemprop="url" rel="index">
@@ -454,44 +507,110 @@ More in
 
           
             
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/12/13/领域语言一二三/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/13/领域语言一二三/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
           
 
           
 
+          
+          
+
+          
         </div>
       </header>
     
 
 
-    <div class="post-body">
+    <div class="post-body" itemprop="articleBody">
 
       
       
 
       
         
-          <span itemprop="articleBody">
-            
-            
-语言的界限就是一个人的世界的界限。 ——维特根斯坦
+          
+            <blockquote>
+<p>语言的界限就是一个人的世界的界限。 ——维特根斯坦</p>
+</blockquote>
+<h3 id="领域特定语言是个啥">领域特定语言是个啥</h3><p>领域特定语言(domain-specific languages,简称DSL)之前只是听过，比如sql就是典型的领域语言，但其实我们平时接触的很多东西都属于DSL的范畴，比如UML、正则等等。下面是Martin Fowler给出的定义：<strong>Domain-Specific Language is a computer programming language of limited expressiveness focused on a particular domain</strong></p>
+<p>前一段时间去听openrestyCon，章亦春讲到自己领域语言方面的应用：产品经理有时会提出某些特定需求或问题，描述的逻辑非常清晰，限定也非常明确。在他看来，这种文档就是对需求最好的实现。他就发明出专门针对这个文档的小型语言，并用它来表示这个文档，相当于用自己定义的语言把产品经理的需求实现了一遍。然后，再利用perl脚本，根据自定义语言与实际的计算机语言（比如c、lua等）的映射规则，生成了最终的实现结果。当时听到这个，非常好奇，感觉很有意思，但是没想清楚到底是怎么回事。最近在读《The pragmatic programmer》这本书，恰好看到领域语言这一块儿，就试着多了解一下。</p>
+<blockquote>
+<p>计算机语言会影响我们思考问题的方式、交流的方式。</p>
+</blockquote>
+<p>通常情况下，一个需求或问题出现时，我们会在理解需求的基础上，思考相应的解决方案，接着就会涉及到实现细节，会想到要使用哪种计算机语言，会考虑要选定的语言的特性和局限性。大概的顺序应该是这样的：</p>
+<pre><code><span class="number">1.</span> 问题/需求 -&gt;
+<span class="number">2.</span> 解决方案 &lt;-&gt; 语言选择、细节实现
+</code></pre><p>在这里，实现的语言的特性、局限性及实现细节会反过来影响我们的解决方案。这可能会导致我们在解决方案上过早的妥协。</p>
+<p>相反，领域语言相比需求本身更高一层，它是从问题中提炼出来的描述规范。有了领域语言之后，我们会抛开实现的细节，把注意力集中到问题的解决方案上。它解决问题的顺序应该是这样的：</p>
+<pre><code><span class="number">1.</span> 问题/需求 -&gt;
+<span class="number">2.</span> 领域语言 -&gt;
+<span class="number">3.</span> 解决方案 -&gt;
+<span class="number">4.</span> 领域语言与具体实现语言之间的映射 -&gt;
+<span class="number">5.</span> 实现的语言及实现细节。
+</code></pre><p>最开始，这种领域语言不一定是可执行的，它只是被用来捕捉用户需求的一种方式、规范。当然也可以更进一步去实现它。事实上，对最终的实现语言的选择和权衡并没有被消除，而是被后置。领域语言充当了解决方案和最终的实现语言之间的桥梁，起到了一个解耦的作用。</p>
+<p>总之，无论领域语言的简单还是复杂，都应该考虑让我们的项目靠近问题领域。通过在更高的抽象层面上编码，获得解决领域问题的自由，暂时忽略琐碎的实现细节，避免解决领域问题时被过早的影响。</p>
+<h3 id="领域语言的实现举例">领域语言的实现举例</h3><h4 id="面向行的易于解析的小语言">面向行的易于解析的小语言</h4><p>在最简单情况下，领域内的小型语言可以采用面向行的、易于解析的格式。这种方式我们平时可能用的也比较多，只是没有意识到这也算作一种小型语言。</p>
+<p>想实现一种小型语言，用于控制一种简单的绘图包。这种语言由单字母命令组成。有些命令后跟一个数字。例如，下面的输入将会绘制出一个矩形。请实现解析这种语言的代码。它应该被设计成能够简单增加新的命令。<em>painting_graphics.txt</em>:</p>
+<pre><code>P <span class="number">2</span> <span class="preprocessor"># select pen <span class="number">2</span></span>
+D    <span class="preprocessor"># pen down</span>
+W <span class="number">2</span> <span class="preprocessor"># draw west <span class="number">2</span>cm</span>
+N <span class="number">1</span> <span class="preprocessor"># then north <span class="number">1</span></span>
+E <span class="number">2</span> <span class="preprocessor"># then east <span class="number">2</span></span>
+S <span class="number">1</span> <span class="preprocessor"># then back south</span>
+U    <span class="preprocessor"># pen up</span>
+</code></pre><p>把《The pragmatic programming》上面的例子补全后（忽略了一些参数判断）代码如<em>painter_parser.c</em>所示：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> ARG <span class="number">1</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> NO_ARG <span class="number">0</span></span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> ARRAY_SIZE(arr) (sizeof(arr) / sizeof(arr[<span class="number">0</span>]))</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">doSelectPen</span><span class="params">(<span class="keyword">char</span>, <span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">doPenUp</span><span class="params">(<span class="keyword">char</span>, <span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">doPenDown</span><span class="params">(<span class="keyword">char</span>, <span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">doPenDir</span><span class="params">(<span class="keyword">char</span>, <span class="keyword">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="keyword">char</span> cmd;</span><br><span class="line">    <span class="keyword">int</span> hasArg;</span><br><span class="line">    <span class="keyword">void</span> (*func)(<span class="keyword">char</span>, <span class="keyword">int</span>);</span><br><span class="line">&#125; Command;</span><br><span class="line"></span><br><span class="line"><span class="function">Command *<span class="title">findCommand</span><span class="params">(<span class="keyword">int</span> cmd)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getArg</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *buff, <span class="keyword">int</span> *result)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> Command cmds[] = &#123;</span><br><span class="line">    &#123;<span class="string">'P'</span>, ARG, doSelectPen&#125;,</span><br><span class="line">    &#123;<span class="string">'U'</span>, NO_ARG, doPenUp&#125;,</span><br><span class="line">    &#123;<span class="string">'D'</span>, NO_ARG, doPenDown&#125;,</span><br><span class="line">    &#123;<span class="string">'N'</span>, ARG, doPenDir&#125;,</span><br><span class="line">    &#123;<span class="string">'E'</span>, ARG, doPenDir&#125;,</span><br><span class="line">    &#123;<span class="string">'S'</span>, ARG, doPenDir&#125;,</span><br><span class="line">    &#123;<span class="string">'W'</span>, ARG, doPenDir&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> penNo = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> penUp = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> penDown = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> buff[<span class="number">1024</span>];</span><br><span class="line">    FILE *fp;</span><br><span class="line">    <span class="keyword">char</span> fileName[] = <span class="string">"painting_graphics.txt"</span>;</span><br><span class="line">    </span><br><span class="line">    fp = fopen(fileName, <span class="string">"r"</span>);</span><br><span class="line">    <span class="keyword">if</span> (fp == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, <span class="string">"open file failed\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (fgets(buff, <span class="keyword">sizeof</span>(buff), fp)) &#123;</span><br><span class="line">        Command *cmd = findCommand(*buff);</span><br><span class="line">        <span class="keyword">if</span> (cmd) &#123;</span><br><span class="line">            <span class="keyword">int</span> arg = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span> (cmd-&gt;hasArg &amp;&amp; !getArg(buff + <span class="number">2</span>, &amp;arg)) &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"'%c' needs an argument \n"</span>, *buff);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            cmd-&gt;func(*buff, arg);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    system(<span class="string">"PAUSE"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Command *<span class="title">findCommand</span><span class="params">(<span class="keyword">int</span> cmd)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; ARRAY_SIZE(cmds); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (cmds[i].cmd == cmd) &#123;</span><br><span class="line">            <span class="keyword">return</span> cmds + i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"unknown command '%c' \n"</span>, cmd);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getArg</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *buff, <span class="keyword">int</span> *result)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sscanf</span>(buff, <span class="string">"%d"</span>, result) == <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">doSelectPen</span><span class="params">(<span class="keyword">char</span> _selectPen, <span class="keyword">int</span> _penNo)</span> </span>&#123;</span><br><span class="line">    penNo = _penNo;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">doPenUp</span><span class="params">(<span class="keyword">char</span> _penUp, <span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">    penUp = <span class="number">1</span>;</span><br><span class="line">    penDown = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">doPenDown</span><span class="params">(<span class="keyword">char</span> _penDown, <span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">    penUp = <span class="number">0</span>;</span><br><span class="line">    penDown = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">doPenDir</span><span class="params">(<span class="keyword">char</span> _dir, <span class="keyword">int</span> step)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (penDown == <span class="number">1</span> &amp;&amp; penNo &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%c"</span>, _dir);</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; step; i++) &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d"</span>, penNo);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行后输出：</p>
+<pre><code>W<span class="number">22</span>
+<span class="label">N2</span>
+E<span class="number">22</span>
+S<span class="number">2</span>
+</code></pre><p>上面的这个例子，和我们平时做的一些东西没有什么区别，只是程序的输入被当成了语言。这里面重要的是，在绘制矩形的需求出来的时候，首先要想到的是实现之后的绘制方式，即能以这种简单的方式去绘图，相当于在最上层做好了抽象，屏蔽了具体的实现细节。</p>
+<pre><code>P <span class="number">2</span> <span class="preprocessor"># 选择<span class="number">2</span>号笔</span>
+D   <span class="preprocessor"># 下笔</span>
+W <span class="number">2</span> <span class="preprocessor"># 向西<span class="number">2</span>划厘米</span>
+N <span class="number">1</span> <span class="preprocessor"># 向北划<span class="number">1</span>厘米</span>
+E <span class="number">2</span> <span class="preprocessor"># 向东划<span class="number">2</span>厘米</span>
+S <span class="number">1</span> <span class="preprocessor"># 向南划<span class="number">1</span>厘米</span>
+U   <span class="preprocessor"># 提笔</span>
+</code></pre><p><em>painter_parser.c</em> 就是上述小语言的解释器。</p>
+<h4 id="有正式语法的复杂语言">有正式语法的复杂语言</h4><p>除了上述面向行的易于解析的小语言，还可用更为正式的语法去实现较为复杂的领域语言。</p>
+<p>在计算机科学领域，有两种可用于递归的规定context-free的文法范式，一种是BNF(Backus–Naur Form)，另一种是Van Wijngaarden grammar。它们可以应用在计算机编程语言、文件格式、指令集、通讯协议、官方语言规范、手册、编程理论的教科书等等。这里边BNF更常用一些。</p>
+<h5 id="使用BNF文法">使用BNF文法</h5><p>看下《The pragmatic programming》书中给出的例子：</p>
+<pre><code>设计一种解析时间规范的BNF文法。应该接受下面的所有例子：
+<span class="number">4</span>pm
+<span class="number">7</span>:<span class="number">38</span>pm
+<span class="number">23</span>:<span class="number">42</span>
+<span class="number">3</span>:<span class="number">16</span>
+<span class="number">3</span>:<span class="number">16</span>am
+</code></pre><p>使用BNF编写时间规范代码如下：</p>
+<pre><code><span class="tag">&lt;<span class="title">time</span>&gt;</span> ::= <span class="tag">&lt;<span class="title">hour</span>&gt;</span> <span class="tag">&lt;<span class="title">ampm</span>&gt;</span> | <span class="tag">&lt;<span class="title">hour</span>&gt;</span> : <span class="tag">&lt;<span class="title">minute</span>&gt;</span> <span class="tag">&lt;<span class="title">ampm</span>&gt;</span> | <span class="tag">&lt;<span class="title">hour</span>&gt;</span> : <span class="tag">&lt;<span class="title">minute</span>&gt;</span>
+<span class="tag">&lt;<span class="title">ampm</span>&gt;</span> ::= am | pm
+<span class="tag">&lt;<span class="title">hour</span>&gt;</span> ::= <span class="tag">&lt;<span class="title">digit</span>&gt;</span> | <span class="tag">&lt;<span class="title">digit</span>&gt;</span> <span class="tag">&lt;<span class="title">digit</span>&gt;</span>
+<span class="tag">&lt;<span class="title">minute</span>&gt;</span> ::= <span class="tag">&lt;<span class="title">digit</span>&gt;</span> <span class="tag">&lt;<span class="title">digit</span>&gt;</span>
+<span class="tag">&lt;<span class="title">digit</span>&gt;</span> ::= 0|1|2|3|4|5|6|7|8|9
+</code></pre><h5 id="用解释器生成器实现解释器">用解释器生成器实现解释器</h5><p>解释器生成器(parser generator)，从字面意思理解就是一个生成器，能够生成一个语言的解释器。下面是具体平台上的解释器生成器的一些介绍。</p>
+<ul>
+<li>c/c++之yacc/bison</li>
+</ul>
+<blockquote>
+<p>yacc(yet another compiler compiler)：<em>是一个用来生成编译器的编译器，就是编译器的代码生成器。Bison基于yacc并在其基础上有所改进。它们生成的编译器主要是C语言写成的语法解析器(parser)。需要与词法解析器 Lex 或 Flex 一起使用。</em></p>
+</blockquote>
+<ul>
+<li>java之javacc</li>
+</ul>
+<blockquote>
+<p>javacc(java compiler compiler)：<em>是一个用JAVA开发的受欢迎的语法分析生成器。这个分析生成器工具可以读取上下文无关且有着特殊意义的语法并把它转换成可以识别且匹配该语法的JAVA程序。JavaCC可以在Java虚拟机(JVM) V1.2或更高的版本上使用，它是100%的纯Java代码，可以在多种平台上运行，与Sun当时推出Java的口号”Write Once Run Anywhere”相一致。JavaCC还提供JJTree工具来帮助我们建立语法树，JJDoc工具为我们的源文件生成BNF范式(巴科斯-诺尔范式)文档(Html)</em></p>
+</blockquote>
 
-领域特定语言是个啥领域特定语言(domain-specific languages,简称DSL)之前只是听过，比如sql就是典型的领域语言，但其实我们平时接触的很多东西都属于DSL的范畴，比如UML、正则等等。下面是Martin Fowler给出的定义：Domain-Specific Language is a computer programming language of limited expressiveness focused on a particular domain
-前一段时间去听openrestyCon，章亦春讲到自己领
-            ...
-          </span>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/13/领域语言一二三/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
         
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
       
     </div>
 
@@ -540,7 +659,10 @@ More in
 
         <div class="post-meta">
           <span class="post-time">
-            发表于
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
             <time itemprop="dateCreated" datetime="2015-11-24T00:35:54+08:00" content="2015-11-24">
               2015-11-24
             </time>
@@ -548,7 +670,11 @@ More in
 
           
             <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                   <a href="/categories/svn-github/" itemprop="url" rel="index">
@@ -565,41 +691,48 @@ More in
 
           
             
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/11/24/用hexo和github搭建的个人页/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/24/用hexo和github搭建的个人页/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
           
 
           
 
+          
+          
+
+          
         </div>
       </header>
     
 
 
-    <div class="post-body">
+    <div class="post-body" itemprop="articleBody">
 
       
       
 
       
         
-          <span itemprop="articleBody">
-            
-            之前曾经用过百度空间、csdn等网站写一些博客，后来用wordpress。使用过程中，有太多不太方便的地方，比如编辑器、站点管理等。结果，一一丢掉，转到了evernote上。后来发现markdown编辑文字很好用，就想在vps上建个博客，用markdown写文章。但是vps上搭建环境需要有一套类似wordpress的内容管理支持，如果纯粹写个笔记或文字还是不太方便。后来，了解到了githup pages这种方式，只需要有个github账号，借助类似hexo、jekyll的静态博客生成框架，就能够快速生成一个托管在github上的静态博客，非常方便。
-如果你想安静的写东西、像写代码一样，不想为v
-            ...
-          </span>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/11/24/用hexo和github搭建的个人页/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <p>之前曾经用过百度空间、csdn等网站写一些博客，后来用wordpress。使用过程中，有太多不太方便的地方，比如编辑器、站点管理等。结果，一一丢掉，转到了evernote上。后来发现markdown编辑文字很好用，就想在vps上建个博客，用markdown写文章。但是vps上搭建环境需要有一套类似wordpress的内容管理支持，如果纯粹写个笔记或文字还是不太方便。后来，了解到了<a href="https://pages.github.com" target="_blank" rel="external">githup pages</a>这种方式，只需要有个github账号，借助类似<a href="https://hexo.io" target="_blank" rel="external">hexo</a>、<a href="http://jekyllrb.com/" target="_blank" rel="external">jekyll</a>的静态博客生成框架，就能够快速生成一个托管在github上的静态博客，非常方便。</p>
+<p>如果你想安静的写东西、<strong>像写代码一样</strong>，不想为vps、编辑文字样式等等所烦，那就赶紧试一下吧。</p>
+<p>主要步骤(以github+hexo为例)：</p>
+<pre><code><span class="number">1.</span> 有一个github账号。
+<span class="number">2.</span> github上创建一个repository。详见https:<span class="comment">//pages.github.com</span>
+<span class="number">3.</span> 在自己的环境中安装hexo和git。详见https:<span class="comment">//hexo.io</span>
+<span class="number">4.</span> 一切完毕后，开始写你的文章吧。
+<span class="number">5.</span> 把文章提交到github上。
+<span class="number">6.</span> ok
+</code></pre><p>除了前面的环境安装稍嫌繁琐之外，从写文章开始就比较方便了。</p>
+
+          
         
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
       
     </div>
 
@@ -648,7 +781,10 @@ More in
 
         <div class="post-meta">
           <span class="post-time">
-            发表于
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
             <time itemprop="dateCreated" datetime="2015-01-09T00:00:00+08:00" content="2015-01-09">
               2015-01-09
             </time>
@@ -656,7 +792,11 @@ More in
 
           
             <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
                   <a href="/categories/读书/" itemprop="url" rel="index">
@@ -673,44 +813,52 @@ More in
 
           
             
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/01/09/读季羡林之一二三/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/09/读季羡林之一二三/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
           
 
           
 
+          
+          
+
+          
         </div>
       </header>
     
 
 
-    <div class="post-body">
+    <div class="post-body" itemprop="articleBody">
 
       
       
 
       
         
-          <span itemprop="articleBody">
-            
-            总体印象从网上看到两个趣事儿，都是关于名人日记的。一个是季羡林，一个是胡适。季羡林的日记里写到，看了一个小说里关于性的描写，让他产生了淫欲，希望这辈子能多日几个女人，与各个地方的女人交融。胡适的日记里写第一天打牌，第二天打牌，第三天埋怨自己不上进，第四天又是打牌，第五天还是打牌。看完之后，哈哈大笑。网友们也在调侃说自己还有机会，前途还是光明的，理由是两位名人年轻的时候也跟我们一样。
-随之下载了他们的作品，进一步了解一下曾经的他们。
-先看季羡林的作品。一个是《牛棚杂记》，一个是《清华园日记》，分别写于文革、大学。
-我对作者的总体感受：真。
-我们对季羡林的了解，更多的来自于网络、来自于媒体、新闻，
-            ...
-          </span>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/01/09/读季羡林之一二三/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <h3 id="总体印象">总体印象</h3><p>从网上看到两个趣事儿，都是关于名人日记的。一个是季羡林，一个是胡适。季羡林的日记里写到，看了一个小说里关于性的描写，让他产生了淫欲，希望这辈子能多日几个女人，与各个地方的女人交融。胡适的日记里写第一天打牌，第二天打牌，第三天埋怨自己不上进，第四天又是打牌，第五天还是打牌。看完之后，哈哈大笑。网友们也在调侃说自己还有机会，前途还是光明的，理由是两位名人年轻的时候也跟我们一样。</p>
+<p>随之下载了他们的作品，进一步了解一下曾经的他们。</p>
+<p>先看季羡林的作品。一个是《牛棚杂记》，一个是《清华园日记》，分别写于文革、大学。</p>
+<p>我对作者的总体感受：真。</p>
+<p>我们对季羡林的了解，更多的来自于网络、来自于媒体、新闻，比如像“国学大师”、梵语专家等等，当然，也来自于温家宝的几次探访上新闻联播、以及季羡林老人家的高寿。这些博眼球的东西很容易扩散，也很容易被接收。读完他的牛棚杂记、清华园日记，我们能看到一个不一样的季羡林。</p>
+<p>季羡林会骂人、更会骂同学、老师。他有惰性，也有七情六欲。会写信给家里要钱，也会花钱吃喝，会看电影，也会借看篮球的时候，看女子运动员的大腿。有怕被批斗时的战战兢兢，有被批斗时的淡定与不屑。有十年浩劫中的苟且懦弱，更有文革之后的平淡视角。</p>
+<p>他的书还有很多，我目前只看完了两本，我还会继续下去。在书中，看不出他的文过饰非，看到的只是作者的真情、真挚。</p>
+<p>相比季羡林，我们目前所处的环境里，有太多太多的反面事例。不管是名人传记、还是企业宣传、包括个人的形象宣扬，总免不了刻意包装和纹饰。这一切，无非是吸引公众眼球，扩大自己的影响力，小到个人的虚荣心，大到集体的利益。当然，前提是，他们不要被方舟子们盯上。那么，换成另一种方式——季羡林式的真诚，能不能达到同样的效果呢？我相信能！</p>
+<h3 id="季羡林的认真与执着">季羡林的认真与执着</h3><p> 从他的日记中，能看到出来，大学时期的季羡林，对阅读的渴望、对多国语语言的认真学习、对写作的执着、对与人交流的坚持。</p>
+<p> 名人之所以称其为名人，还是有其过人之处，值得我辈学习。</p>
+<h3 id="其它">其它</h3><p>季羡林在写牛棚杂记时，对一些人名做了隐晦处理，比如毛、江、彭佩云之类的人。第一感觉是，季羡林深受文革之害，变得卑微起来了，到了改革开放的年代，那些人名字也不敢说出来。随后想到的便是自保之心。虽然到了改革开放的年代，官方已经对文革定了性，对毛做了评价，但是个人的回忆录还是不能直面主题，只能“旁敲侧击”、“隔靴搔痒”、“以小见大”。只能说这是一个国家、民族的悲哀。</p>
+<p>与季羡林在大学时期的阅读量相比，我辈真应该感到惭愧至极。</p>
+<p>增加对一个人、一件事儿、一个地方的认识的唯一方式，就是亲自去接触人、事儿和地方，去认真的感受，而不是道听途说，也不是盲目的接收他人咀嚼之后吐给我们的东西。</p>
+<p>与人交流时，需要真诚，不需要隐藏自己真实的想法。需要做的，不是去担心自己说真心话会导致对方的不爽，而是该去考虑说真心话时如何让对方听起来更舒服。</p>
+
+          
         
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
       
     </div>
 
@@ -728,7 +876,6 @@ More in
 
 
     
-
   </section>
 
   
@@ -738,17 +885,15 @@ More in
 
 
 
+          </div>
+          
+
+
+          
+
         </div>
-
         
-
-
-        
-
-      </div>
-
-      
-        
+          
   
   <div class="sidebar-toggle">
     <div class="sidebar-toggle-line-wrap">
@@ -767,10 +912,12 @@ More in
 
       <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" src="/images/default_avatar.jpg" alt="qiaoba" itemprop="image"/>
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="qiaoba" />
           <p class="site-author-name" itemprop="name">qiaoba</p>
+          <p class="site-description motion-element" itemprop="description"></p>
         </div>
-        <p class="site-description motion-element" itemprop="description"></p>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
@@ -779,19 +926,23 @@ More in
             </a>
           </div>
 
-          <div class="site-state-item site-state-categories">
-            <a href="/categories">
-              <span class="site-state-item-count">9</span>
-              <span class="site-state-item-name">分类</span>
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
               </a>
-          </div>
+            </div>
+          
 
-          <div class="site-state-item site-state-tags">
-            
-              <span class="site-state-item-count">25</span>
-              <span class="site-state-item-name">标签</span>
-              
-          </div>
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
 
         </nav>
 
@@ -804,9 +955,8 @@ More in
         
         
 
-        <div class="links-of-author motion-element">
-          
-        </div>
+        
+        
 
       </section>
 
@@ -816,7 +966,8 @@ More in
   </aside>
 
 
-      
+        
+      </div>
     </main>
 
     <footer id="footer" class="footer">
@@ -826,7 +977,7 @@ More in
   &copy; 
   <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
-    <i class="icon-next-heart fa fa-heart"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">qiaoba</span>
 </div>
@@ -838,72 +989,102 @@ More in
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
+    NexT.Pisces
   </a>
 </div>
 
+        
 
-
+        
       </div>
     </footer>
 
-    <div class="back-to-top"></div>
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
   </div>
 
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
   <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
 
   
-  
-
-  
-    
-
-  
-    
-  
-
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"iqiaoba"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.id = 'duoshuo-script';
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-    
-     
-
-
-    
-  
-
-  
-  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
-  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
-
-
-  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
-  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
-<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
-
-<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
-
-
   <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
   <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
 
   
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
 
-  <script type="text/javascript" src="/js/bootstrap.js"></script>
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
 
   
   
 
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
   
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
   
 
 </body>
