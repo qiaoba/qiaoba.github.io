@@ -123,7 +123,7 @@
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?4a7e4d1a3f0c2224f2f99b45eab0542d";
+      hm.src = "//hm.baidu.com/hm.js?ae31382158ae23defbd232319fbbb700";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -231,6 +231,150 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/08/初识PostgreSQL/" itemprop="url">
+                  初识PostgreSQL
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-08T20:33:00+08:00" content="2016-08-08">
+              2016-08-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/DB/" itemprop="url" rel="index">
+                    <span itemprop="name">DB</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><img src="/images/postgresql.jpg" alt="Alt"></p>
+<h3 id="安装">安装</h3><p>安装环境</p>
+<pre><code>CentOS <span class="number">6.5</span>
+</code></pre><p>安装系统默认版本</p>
+<pre><code>$ yum <span class="operator"><span class="keyword">install</span> postgresql-<span class="keyword">server</span></span>
+</code></pre><p>安装完成后执行</p>
+<pre><code>$ service postgresql initdb
+$ chkconfig postgresql <span class="function_start"><span class="keyword">on</span></span>
+</code></pre><p>如果想要安装某一版本的(这里举例9.5)，</p>
+<pre><code>$ yum <span class="operator"><span class="keyword">install</span> <span class="keyword">http</span>://yum.postgresql.org/<span class="number">9.5</span>/redhat/rhel-<span class="number">7</span>-x86_64/pgdg-redhat95-<span class="number">9.5</span>-<span class="number">2.</span>noarch.rpm
+$ yum <span class="keyword">install</span> postgresql95-<span class="keyword">server</span> postgresql95-contrib
+
+$ service postgresql-<span class="number">9.5</span> initdb
+$ chkconfig postgresql-<span class="number">9.5</span> <span class="keyword">on</span> service postgresql-<span class="number">9.5</span> <span class="keyword">start</span></span>
+</code></pre><p>查看服务已经启动</p>
+<pre><code>$ ll /etc/init.d/postgresql-<span class="number">9.5</span> 
+-rwxr-xr-x <span class="number">1</span> root root <span class="number">10072</span> May <span class="number">15</span> <span class="number">06</span>:<span class="number">34</span> /etc/init.d/postgresql-<span class="number">9.5</span>
+
+$ ps -ef|grep post
+postgres <span class="number">16188</span>     <span class="number">1</span>  <span class="number">0</span> <span class="number">10</span>:<span class="number">31</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> /usr/pgsql-<span class="number">9.5</span>/bin/postmaster -D /var/lib/pgsql/<span class="number">9.5</span>/data
+postgres <span class="number">16190</span> <span class="number">16188</span>  <span class="number">0</span> <span class="number">10</span>:<span class="number">31</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> postgres: logger process                                
+postgres <span class="number">16192</span> <span class="number">16188</span>  <span class="number">0</span> <span class="number">10</span>:<span class="number">31</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> postgres: checkpointer process                          
+postgres <span class="number">16193</span> <span class="number">16188</span>  <span class="number">0</span> <span class="number">10</span>:<span class="number">31</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> postgres: writer process                                
+postgres <span class="number">16194</span> <span class="number">16188</span>  <span class="number">0</span> <span class="number">10</span>:<span class="number">31</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> postgres: wal writer process                            
+postgres <span class="number">16195</span> <span class="number">16188</span>  <span class="number">0</span> <span class="number">10</span>:<span class="number">31</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> postgres: autovacuum launcher process                   
+postgres <span class="number">16196</span> <span class="number">16188</span>  <span class="number">0</span> <span class="number">10</span>:<span class="number">31</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> postgres: stats collector process                       
+
+$ netstat -aux|grep post
+unix  <span class="number">2</span>      [ ACC ]     STREAM     LISTENING     <span class="number">485813</span> /var/run/postgresql/.s.PGSQL<span class="number">.5432</span>
+</code></pre><p>详情可参考<a href="https://wiki.postgresql.org/wiki/Detailed_installation_guides">PostgreSQL官方Wiki</a></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/08/初识PostgreSQL/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -1286,125 +1430,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/12/19/gdb调试备忘/" itemprop="url">
-                  gdb调试备忘
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-12-19T08:35:52+08:00" content="2015-12-19">
-              2015-12-19
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/c-c/" itemprop="url" rel="index">
-                    <span itemprop="name">c/c++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          gdb下调试程序：gcc -c -g painter_parser.c 生成painter_parser.o文件gcc -o painter_parser.exe painter_parser.o 生成painter_parser.exe文件gdb painter_parser 进入gdb调试环境
-
-          ...
-
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/19/gdb调试备忘/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1450,7 +1475,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-count">16</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1458,7 +1483,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1467,7 +1492,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

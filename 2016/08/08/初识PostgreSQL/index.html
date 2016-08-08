@@ -1,0 +1,713 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="postgresql," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="安装安装环境
+CentOS 6.5
+安装系统默认版本
+$ yum install postgresql-server
+安装完成后执行
+$ service postgresql initdb
+$ chkconfig postgresql on
+如果想要安装某一版本的(这里举例9.5)，
+$ yum install http://yum.postgresql.org/9.5/redhat/rhel-7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初识PostgreSQL">
+<meta property="og:url" content="http://yoursite.com/2016/08/08/初识PostgreSQL/index.html">
+<meta property="og:site_name" content="qb's blabla ......">
+<meta property="og:description" content="安装安装环境
+CentOS 6.5
+安装系统默认版本
+$ yum install postgresql-server
+安装完成后执行
+$ service postgresql initdb
+$ chkconfig postgresql on
+如果想要安装某一版本的(这里举例9.5)，
+$ yum install http://yum.postgresql.org/9.5/redhat/rhel-7">
+<meta property="og:image" content="http://yoursite.com/images/postgresql.jpg">
+<meta property="og:updated_time" content="2016-08-08T12:45:49.083Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初识PostgreSQL">
+<meta name="twitter:description" content="安装安装环境
+CentOS 6.5
+安装系统默认版本
+$ yum install postgresql-server
+安装完成后执行
+$ service postgresql initdb
+$ chkconfig postgresql on
+如果想要安装某一版本的(这里举例9.5)，
+$ yum install http://yum.postgresql.org/9.5/redhat/rhel-7">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 初识PostgreSQL | qb's blabla ...... </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?ae31382158ae23defbd232319fbbb700";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">qb's blabla ......</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                初识PostgreSQL
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-08T20:33:00+08:00" content="2016-08-08">
+              2016-08-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/DB/" itemprop="url" rel="index">
+                    <span itemprop="name">DB</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/images/postgresql.jpg" alt="Alt"></p>
+<h3 id="安装">安装</h3><p>安装环境</p>
+<pre><code>CentOS <span class="number">6.5</span>
+</code></pre><p>安装系统默认版本</p>
+<pre><code>$ yum <span class="operator"><span class="keyword">install</span> postgresql-<span class="keyword">server</span></span>
+</code></pre><p>安装完成后执行</p>
+<pre><code>$ service postgresql initdb
+$ chkconfig postgresql <span class="function_start"><span class="keyword">on</span></span>
+</code></pre><p>如果想要安装某一版本的(这里举例9.5)，</p>
+<pre><code>$ yum <span class="operator"><span class="keyword">install</span> <span class="keyword">http</span>://yum.postgresql.org/<span class="number">9.5</span>/redhat/rhel-<span class="number">7</span>-x86_64/pgdg-redhat95-<span class="number">9.5</span>-<span class="number">2.</span>noarch.rpm
+$ yum <span class="keyword">install</span> postgresql95-<span class="keyword">server</span> postgresql95-contrib
+
+$ service postgresql-<span class="number">9.5</span> initdb
+$ chkconfig postgresql-<span class="number">9.5</span> <span class="keyword">on</span> service postgresql-<span class="number">9.5</span> <span class="keyword">start</span></span>
+</code></pre><p>查看服务已经启动</p>
+<pre><code>$ ll /etc/init.d/postgresql-<span class="number">9.5</span> 
+-rwxr-xr-x <span class="number">1</span> root root <span class="number">10072</span> May <span class="number">15</span> <span class="number">06</span>:<span class="number">34</span> /etc/init.d/postgresql-<span class="number">9.5</span>
+
+$ ps -ef|grep post
+postgres <span class="number">16188</span>     <span class="number">1</span>  <span class="number">0</span> <span class="number">10</span>:<span class="number">31</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> /usr/pgsql-<span class="number">9.5</span>/bin/postmaster -D /var/lib/pgsql/<span class="number">9.5</span>/data
+postgres <span class="number">16190</span> <span class="number">16188</span>  <span class="number">0</span> <span class="number">10</span>:<span class="number">31</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> postgres: logger process                                
+postgres <span class="number">16192</span> <span class="number">16188</span>  <span class="number">0</span> <span class="number">10</span>:<span class="number">31</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> postgres: checkpointer process                          
+postgres <span class="number">16193</span> <span class="number">16188</span>  <span class="number">0</span> <span class="number">10</span>:<span class="number">31</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> postgres: writer process                                
+postgres <span class="number">16194</span> <span class="number">16188</span>  <span class="number">0</span> <span class="number">10</span>:<span class="number">31</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> postgres: wal writer process                            
+postgres <span class="number">16195</span> <span class="number">16188</span>  <span class="number">0</span> <span class="number">10</span>:<span class="number">31</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> postgres: autovacuum launcher process                   
+postgres <span class="number">16196</span> <span class="number">16188</span>  <span class="number">0</span> <span class="number">10</span>:<span class="number">31</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> postgres: stats collector process                       
+
+$ netstat -aux|grep post
+unix  <span class="number">2</span>      [ ACC ]     STREAM     LISTENING     <span class="number">485813</span> /var/run/postgresql/.s.PGSQL<span class="number">.5432</span>
+</code></pre><p>详情可参考<a href="https://wiki.postgresql.org/wiki/Detailed_installation_guides" target="_blank" rel="external">PostgreSQL官方Wiki</a></p>
+<a id="more"></a>
+<h3 id="进入PostgreSQL命令行界面">进入PostgreSQL命令行界面</h3><p>PostgreSQL安装完成后，会默认生成一个名为postgres的linux用户，一个名为postgres的数据库和一个名为postgres的数据库用户。这个postgres就是数据库的超级账号。</p>
+<p>切换到linux的postgres用户</p>
+<pre><code><span class="variable">$ </span>su - postgres
+</code></pre><p>可以看到postgres的安装目录（这里以PostgreSQL9.5版本举例）</p>
+<pre><code>$ ll
+total <span class="number">4</span>
+drwx------ <span class="number">4</span> postgres postgres <span class="number">4096</span> Aug  <span class="number">5</span> <span class="number">09</span>:<span class="number">58</span> <span class="number">9.5</span>
+</code></pre><p>进入PostgreSQL命令行界面</p>
+<pre><code>$ psql
+
+psql (<span class="number">9</span>.<span class="number">5</span>.<span class="number">3</span>)
+<span class="built_in">Type</span> "<span class="built_in">help</span>" <span class="flow">for</span> <span class="built_in">help</span>.
+
+postgres=# 
+</code></pre><h3 id="创建新用户和新数据库">创建新用户和新数据库</h3><p>进入PostgreSQL命令行后，创建一个名为jjtest、密码为123456的数据库用户</p>
+<pre><code><span class="operator"><span class="keyword">create</span> <span class="keyword">user</span> jjtest <span class="keyword">with</span> <span class="keyword">password</span> <span class="string">'123456'</span>;</span>
+</code></pre><p>为jjtest创建一个数据库：jjtestdb</p>
+<pre><code><span class="operator"><span class="keyword">create</span> <span class="keyword">database</span> jjtestdb owner jjtest;</span>
+</code></pre><p>把数据库jjtestdb的所有操作权限赋给jjtest</p>
+<pre><code><span class="operator"><span class="keyword">grant</span> all <span class="keyword">privileges</span> <span class="keyword">on</span> <span class="keyword">database</span> jjtestdb <span class="keyword">to</span> jjtest;</span>
+</code></pre><p>退出PostgreSQL命令行界面</p>
+<pre><code>\<span class="tag">q</span> 或者 Ctrl+D
+</code></pre><h3 id="用户登录">用户登录</h3><p>创建完jjtest用户及其拥有的db后，尝试登录</p>
+<pre><code>psql -U jjtest -d jjtestdb -p <span class="number">5432</span> -h <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>
+</code></pre><p>需要密码，会出现下面的输入密码提示</p>
+<pre><code>Password for <span class="keyword">user</span> <span class="title">jjtest</span>: 
+</code></pre><p>输入密码 <strong>123456</strong> 后，进入命令行界面，当前数据库为jjtestdb</p>
+<pre><code>psql (<span class="number">9.5</span><span class="number">.3</span>)
+Type <span class="string">"help"</span> <span class="keyword">for</span> help.
+
+jjtestdb=&gt; 
+</code></pre><p>登录参数</p>
+<pre><code>-h, --host=HOSTNAME      database <span class="built_in">server</span> host <span class="keyword">or</span> socket directory (<span class="keyword">default</span>: <span class="string">"local socket"</span>)
+-p, --port=PORT          database <span class="built_in">server</span> port (<span class="keyword">default</span>: <span class="string">"5432"</span>)
+-U, --username=USERNAME  database user name (<span class="keyword">default</span>: <span class="string">"root"</span>)
+-d, --dbname=DBNAME      database name <span class="keyword">to</span> connect <span class="keyword">to</span> (<span class="keyword">default</span>: <span class="string">"root"</span>)
+</code></pre><h3 id="PSQL命令">PSQL命令</h3><pre><code>$ psql <span class="comment">--help</span>
+</code></pre><h3 id="PSQL命令行里的命令">PSQL命令行里的命令</h3><p>进入数据库后，可以用 \? 命令查看psql提供的命令</p>
+<pre><code>postgres-<span class="preprocessor"># \?</span>
+</code></pre><h3 id="常用数据库操作">常用数据库操作</h3><h5 id="创建一个表">创建一个表</h5><pre><code><span class="operator"><span class="keyword">create</span> <span class="keyword">table</span> my_first_table(
+    a <span class="built_in">integer</span>,
+    b <span class="built_in">integer</span>,
+    <span class="keyword">c</span> <span class="built_in">integer</span>,
+    description <span class="built_in">text</span>,
+    primary <span class="keyword">key</span>(a,<span class="keyword">c</span>)
+);</span>
+</code></pre><h5 id="插入一条记录">插入一条记录</h5><pre><code><span class="operator"><span class="keyword">insert</span> <span class="keyword">into</span> my_first_table <span class="keyword">values</span>(<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="string">'my first table description'</span>);</span>
+</code></pre><h5 id="查询表">查询表</h5><pre><code><span class="operator"><span class="keyword">select</span> * <span class="keyword">from</span> my_first_table;</span>
+</code></pre><h5 id="更新数据">更新数据</h5><pre><code><span class="operator"><span class="keyword">update</span> my_first_table <span class="keyword">set</span> <span class="keyword">c</span>=<span class="number">3</span> <span class="keyword">where</span> a=<span class="number">1</span>;</span>
+</code></pre><h5 id="删除数据">删除数据</h5><pre><code><span class="operator"><span class="keyword">delete</span> <span class="keyword">from</span> my_first_table <span class="keyword">where</span> a=<span class="number">1</span>;</span>
+</code></pre><h5 id="创建索引">创建索引</h5><pre><code><span class="operator"><span class="keyword">create</span> <span class="keyword">index</span> idx_desc <span class="keyword">on</span> my_first_table (b);</span>
+</code></pre><h5 id="Drop表">Drop表</h5><pre><code><span class="operator"><span class="keyword">drop</span> <span class="keyword">table</span> my_first_table</span>
+</code></pre><h5 id="查看所有数据库">查看所有数据库</h5><pre><code><span class="string">\l</span>
+</code></pre><h5 id="切换到某个数据库">切换到某个数据库</h5><pre><code><span class="string">\c</span> jjtestdb
+</code></pre><h5 id="查看当前数据库所有表">查看当前数据库所有表</h5><pre><code><span class="string">\dt</span>
+</code></pre><h5 id="查看表schema">查看表schema</h5><pre><code><span class="string">\d</span> my_first_table
+或
+<span class="string">\d+</span> my_first_table
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/postgresql/" rel="tag">#postgresql</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/28/awk实现多文件按列合并/" rel="next" title="awk实现多文件按列合并">
+                <i class="fa fa-chevron-left"></i> awk实现多文件按列合并
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpeg"
+               alt="qb" />
+          <p class="site-author-name" itemprop="name">qb</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进入PostgreSQL命令行界面"><span class="nav-number">2.</span> <span class="nav-text">进入PostgreSQL命令行界面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建新用户和新数据库"><span class="nav-number">3.</span> <span class="nav-text">创建新用户和新数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户登录"><span class="nav-number">4.</span> <span class="nav-text">用户登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PSQL命令"><span class="nav-number">5.</span> <span class="nav-text">PSQL命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PSQL命令行里的命令"><span class="nav-number">6.</span> <span class="nav-text">PSQL命令行里的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用数据库操作"><span class="nav-number">7.</span> <span class="nav-text">常用数据库操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#创建一个表"><span class="nav-number">7.0.1.</span> <span class="nav-text">创建一个表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#插入一条记录"><span class="nav-number">7.0.2.</span> <span class="nav-text">插入一条记录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查询表"><span class="nav-number">7.0.3.</span> <span class="nav-text">查询表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#更新数据"><span class="nav-number">7.0.4.</span> <span class="nav-text">更新数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#删除数据"><span class="nav-number">7.0.5.</span> <span class="nav-text">删除数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建索引"><span class="nav-number">7.0.6.</span> <span class="nav-text">创建索引</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Drop表"><span class="nav-number">7.0.7.</span> <span class="nav-text">Drop表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查看所有数据库"><span class="nav-number">7.0.8.</span> <span class="nav-text">查看所有数据库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#切换到某个数据库"><span class="nav-number">7.0.9.</span> <span class="nav-text">切换到某个数据库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查看当前数据库所有表"><span class="nav-number">7.0.10.</span> <span class="nav-text">查看当前数据库所有表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查看表schema"><span class="nav-number">7.0.11.</span> <span class="nav-text">查看表schema</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qb</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
