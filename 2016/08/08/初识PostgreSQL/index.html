@@ -85,40 +85,19 @@
 
 
 <meta name="description" content="安装安装环境
-CentOS 6.5
-安装系统默认版本
-$ yum install postgresql-server
-安装完成后执行
-$ service postgresql initdb
-$ chkconfig postgresql on
-如果想要安装某一版本的(这里举例9.5)，
-$ yum install http://yum.postgresql.org/9.5/redhat/rhel-7">
+CentOS 6.5">
 <meta property="og:type" content="article">
 <meta property="og:title" content="初识PostgreSQL">
 <meta property="og:url" content="http://yoursite.com/2016/08/08/初识PostgreSQL/index.html">
 <meta property="og:site_name" content="qb's blabla ......">
 <meta property="og:description" content="安装安装环境
-CentOS 6.5
-安装系统默认版本
-$ yum install postgresql-server
-安装完成后执行
-$ service postgresql initdb
-$ chkconfig postgresql on
-如果想要安装某一版本的(这里举例9.5)，
-$ yum install http://yum.postgresql.org/9.5/redhat/rhel-7">
+CentOS 6.5">
 <meta property="og:image" content="http://yoursite.com/images/postgresql.jpg">
-<meta property="og:updated_time" content="2016-08-08T12:45:49.083Z">
+<meta property="og:updated_time" content="2016-08-08T12:48:36.256Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="初识PostgreSQL">
 <meta name="twitter:description" content="安装安装环境
-CentOS 6.5
-安装系统默认版本
-$ yum install postgresql-server
-安装完成后执行
-$ service postgresql initdb
-$ chkconfig postgresql on
-如果想要安装某一版本的(这里举例9.5)，
-$ yum install http://yum.postgresql.org/9.5/redhat/rhel-7">
+CentOS 6.5">
 
 
 
@@ -338,7 +317,8 @@ $ yum install http://yum.postgresql.org/9.5/redhat/rhel-7">
         <p><img src="/images/postgresql.jpg" alt="Alt"></p>
 <h3 id="安装">安装</h3><p>安装环境</p>
 <pre><code>CentOS <span class="number">6.5</span>
-</code></pre><p>安装系统默认版本</p>
+</code></pre><a id="more"></a>
+<p>安装系统默认版本</p>
 <pre><code>$ yum <span class="operator"><span class="keyword">install</span> postgresql-<span class="keyword">server</span></span>
 </code></pre><p>安装完成后执行</p>
 <pre><code>$ service postgresql initdb
@@ -365,7 +345,6 @@ postgres <span class="number">16196</span> <span class="number">16188</span>  <s
 $ netstat -aux|grep post
 unix  <span class="number">2</span>      [ ACC ]     STREAM     LISTENING     <span class="number">485813</span> /var/run/postgresql/.s.PGSQL<span class="number">.5432</span>
 </code></pre><p>详情可参考<a href="https://wiki.postgresql.org/wiki/Detailed_installation_guides" target="_blank" rel="external">PostgreSQL官方Wiki</a></p>
-<a id="more"></a>
 <h3 id="进入PostgreSQL命令行界面">进入PostgreSQL命令行界面</h3><p>PostgreSQL安装完成后，会默认生成一个名为postgres的linux用户，一个名为postgres的数据库和一个名为postgres的数据库用户。这个postgres就是数据库的超级账号。</p>
 <p>切换到linux的postgres用户</p>
 <pre><code><span class="variable">$ </span>su - postgres

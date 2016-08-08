@@ -318,33 +318,7 @@
           <p><img src="/images/postgresql.jpg" alt="Alt"></p>
 <h3 id="安装">安装</h3><p>安装环境</p>
 <pre><code>CentOS <span class="number">6.5</span>
-</code></pre><p>安装系统默认版本</p>
-<pre><code>$ yum <span class="operator"><span class="keyword">install</span> postgresql-<span class="keyword">server</span></span>
-</code></pre><p>安装完成后执行</p>
-<pre><code>$ service postgresql initdb
-$ chkconfig postgresql <span class="function_start"><span class="keyword">on</span></span>
-</code></pre><p>如果想要安装某一版本的(这里举例9.5)，</p>
-<pre><code>$ yum <span class="operator"><span class="keyword">install</span> <span class="keyword">http</span>://yum.postgresql.org/<span class="number">9.5</span>/redhat/rhel-<span class="number">7</span>-x86_64/pgdg-redhat95-<span class="number">9.5</span>-<span class="number">2.</span>noarch.rpm
-$ yum <span class="keyword">install</span> postgresql95-<span class="keyword">server</span> postgresql95-contrib
-
-$ service postgresql-<span class="number">9.5</span> initdb
-$ chkconfig postgresql-<span class="number">9.5</span> <span class="keyword">on</span> service postgresql-<span class="number">9.5</span> <span class="keyword">start</span></span>
-</code></pre><p>查看服务已经启动</p>
-<pre><code>$ ll /etc/init.d/postgresql-<span class="number">9.5</span> 
--rwxr-xr-x <span class="number">1</span> root root <span class="number">10072</span> May <span class="number">15</span> <span class="number">06</span>:<span class="number">34</span> /etc/init.d/postgresql-<span class="number">9.5</span>
-
-$ ps -ef|grep post
-postgres <span class="number">16188</span>     <span class="number">1</span>  <span class="number">0</span> <span class="number">10</span>:<span class="number">31</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> /usr/pgsql-<span class="number">9.5</span>/bin/postmaster -D /var/lib/pgsql/<span class="number">9.5</span>/data
-postgres <span class="number">16190</span> <span class="number">16188</span>  <span class="number">0</span> <span class="number">10</span>:<span class="number">31</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> postgres: logger process                                
-postgres <span class="number">16192</span> <span class="number">16188</span>  <span class="number">0</span> <span class="number">10</span>:<span class="number">31</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> postgres: checkpointer process                          
-postgres <span class="number">16193</span> <span class="number">16188</span>  <span class="number">0</span> <span class="number">10</span>:<span class="number">31</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> postgres: writer process                                
-postgres <span class="number">16194</span> <span class="number">16188</span>  <span class="number">0</span> <span class="number">10</span>:<span class="number">31</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> postgres: wal writer process                            
-postgres <span class="number">16195</span> <span class="number">16188</span>  <span class="number">0</span> <span class="number">10</span>:<span class="number">31</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> postgres: autovacuum launcher process                   
-postgres <span class="number">16196</span> <span class="number">16188</span>  <span class="number">0</span> <span class="number">10</span>:<span class="number">31</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> postgres: stats collector process                       
-
-$ netstat -aux|grep post
-unix  <span class="number">2</span>      [ ACC ]     STREAM     LISTENING     <span class="number">485813</span> /var/run/postgresql/.s.PGSQL<span class="number">.5432</span>
-</code></pre><p>详情可参考<a href="https://wiki.postgresql.org/wiki/Detailed_installation_guides">PostgreSQL官方Wiki</a></p>
+</code></pre>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/08/08/初识PostgreSQL/" rel="contents">
               阅读全文 &raquo;
