@@ -120,7 +120,7 @@ $ cat c.txt
 5 8324
 7 1111
 把a b c三个文件合并成一个文件，文件格式为：K A">
-<meta property="og:updated_time" content="2016-08-16T14:22:11.745Z">
+<meta property="og:updated_time" content="2016-08-16T14:25:57.645Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="awk实现多文件按列合并">
 <meta name="twitter:description" content="应用场景有三个文件，a.txt, b.txt, c.txt.
@@ -372,8 +372,25 @@ $ cat c.txt
 <span class="number">7</span> <span class="number">1111</span>
 </code></pre><p>把a b c三个文件合并成一个文件，文件格式为：K A B C。其中，不存在的列值补为0。</p>
 <p>用awk来处理文本：</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">awk '</span><br><span class="line">    FNR == 1 &#123;</span><br><span class="line">        <span class="keyword">n</span>++;</span><br><span class="line">    &#125;</span><br><span class="line">    &#123;</span><br><span class="line">        a[<span class="label">$1</span>] = 0;</span><br><span class="line">        b[<span class="label">$1</span><span class="string">","</span><span class="keyword">n</span>] = <span class="label">$2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    END &#123;</span><br><span class="line">        <span class="keyword">for</span>(k <span class="keyword">in</span> a)&#123;</span><br><span class="line">            printf(<span class="string">"%s\t"</span>, k); </span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">m</span> = 1; <span class="keyword">m</span> &lt;= <span class="keyword">n</span>; <span class="keyword">m</span>++) &#123;</span><br><span class="line">                printf(<span class="string">"%s\t"</span>, b[k<span class="string">","</span><span class="keyword">m</span>] == <span class="string">""</span> ? 0 : b[k<span class="string">","</span><span class="keyword">m</span>]); </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">print</span> <span class="string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">' a.txt b.txt c.txt | <span class="keyword">sort</span></span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
+<pre><code>awk '
+    FNR == 1 {
+        <span class="keyword">n</span>++;
+    }
+    {
+        a[<span class="label">$1</span>] = 0;
+        b[<span class="label">$1</span><span class="string">","</span><span class="keyword">n</span>] = <span class="label">$2</span>;
+    }
+    END {
+        <span class="keyword">for</span>(k <span class="keyword">in</span> a){
+            printf(<span class="string">"%s\t"</span>, k); 
+            <span class="keyword">for</span>(<span class="keyword">m</span> = 1; <span class="keyword">m</span> &lt;= <span class="keyword">n</span>; <span class="keyword">m</span>++) {
+                printf(<span class="string">"%s\t"</span>, b[k<span class="string">","</span><span class="keyword">m</span>] == <span class="string">""</span> ? 0 : b[k<span class="string">","</span><span class="keyword">m</span>]); 
+            }
+            <span class="keyword">print</span> <span class="string">""</span>;
+        }
+    }
+' a.txt b.txt c.txt | <span class="keyword">sort</span>
+</code></pre><p>输出结果：</p>
 <pre><code><span class="number">1</span>       <span class="number">234</span>     <span class="number">0</span>       <span class="number">0</span>
 <span class="number">2</span>       <span class="number">456</span>     <span class="number">33333</span>   <span class="number">0</span>
 <span class="number">3</span>       <span class="number">0</span>       <span class="number">44444</span>   <span class="number">0</span>
@@ -383,8 +400,25 @@ $ cat c.txt
 </code></pre><p>这里面存在的问题是，没有考虑存在空文件的情况。添加一个文件d.txt，文件格式为：K  D</p>
 <pre><code><span class="variable">$ </span>touch d.txt
 </code></pre><p>如果不向d.txt写内容，把d.txt作为一个空文件放到脚本参数中，希望最终的结果格式是：K    A   B   C   D</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">awk '</span><br><span class="line">    FNR == 1 &#123;</span><br><span class="line">        <span class="keyword">n</span>++;</span><br><span class="line">    &#125;</span><br><span class="line">    &#123;</span><br><span class="line">        a[<span class="label">$1</span>] = 0;</span><br><span class="line">        b[<span class="label">$1</span><span class="string">","</span><span class="keyword">n</span>] = <span class="label">$2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    END &#123;</span><br><span class="line">        <span class="keyword">for</span>(k <span class="keyword">in</span> a)&#123;</span><br><span class="line">            printf(<span class="string">"%s\t"</span>, k); </span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">m</span> = 1; <span class="keyword">m</span> &lt;= <span class="keyword">n</span>; <span class="keyword">m</span>++) &#123;</span><br><span class="line">                printf(<span class="string">"%s\t"</span>, b[k<span class="string">","</span><span class="keyword">m</span>] == <span class="string">""</span> ? 0 : b[k<span class="string">","</span><span class="keyword">m</span>]); </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">print</span> <span class="string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">' a.txt b.txt c.txt <span class="keyword">d</span>.txt | <span class="keyword">sort</span></span><br></pre></td></tr></table></figure>
-<p>结果：</p>
+<pre><code>awk '
+    FNR == 1 {
+        <span class="keyword">n</span>++;
+    }
+    {
+        a[<span class="label">$1</span>] = 0;
+        b[<span class="label">$1</span><span class="string">","</span><span class="keyword">n</span>] = <span class="label">$2</span>;
+    }
+    END {
+        <span class="keyword">for</span>(k <span class="keyword">in</span> a){
+            printf(<span class="string">"%s\t"</span>, k); 
+            <span class="keyword">for</span>(<span class="keyword">m</span> = 1; <span class="keyword">m</span> &lt;= <span class="keyword">n</span>; <span class="keyword">m</span>++) {
+                printf(<span class="string">"%s\t"</span>, b[k<span class="string">","</span><span class="keyword">m</span>] == <span class="string">""</span> ? 0 : b[k<span class="string">","</span><span class="keyword">m</span>]); 
+            }
+            <span class="keyword">print</span> <span class="string">""</span>;
+        }
+    }
+' a.txt b.txt c.txt <span class="keyword">d</span>.txt | <span class="keyword">sort</span>
+</code></pre><p>结果：</p>
 <pre><code><span class="number">1</span>       <span class="number">234</span>     <span class="number">0</span>       <span class="number">0</span>
 <span class="number">2</span>       <span class="number">456</span>     <span class="number">33333</span>   <span class="number">0</span>
 <span class="number">3</span>       <span class="number">0</span>       <span class="number">44444</span>   <span class="number">0</span>
