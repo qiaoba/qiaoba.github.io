@@ -319,8 +319,9 @@
 <pre><code>Model：模型，用来处理应用程序的数据逻辑.
 <span class="keyword">View</span>：视图，用来展示数据效果。
 Controller：控制器，用来响应来自<span class="keyword">View</span>的请求，作为代理来处理请求，并把结果返回给<span class="keyword">View</span>。
-</code></pre><h3 id="MVC框架存在的意义">MVC框架存在的意义</h3><p>现在可以用做Web开发的每种语言里都提供了很多MVC框架，像Java中的Struts2、Spring MVC，PHP中的Yii、ThinkPHP、YAF、Phalcon等等。大大提高了Web开发的效率，增强了Web开发的规范。但是，框架的存在并不仅仅是用来提高开发效率的。反过来说，想要提高开发效率，也不应该仅仅依赖于框架本身，更应该依赖使用框架的人对软件复用的理解和应用。因为框架也是基于<strong>软件复用</strong>这一目的而产生的。</p>
-<h3 id="C_和_M_到底该扮演什么角色">C 和 M 到底该扮演什么角色</h3><h4 id="业务逻辑在哪里">业务逻辑在哪里</h4><p>多个功能的集合组成了一个Web/移动应用，我们的业务逻辑就分散在一个个功能上面。Controller里有业务逻辑吗？有。比如，我们需要在Controller里检查参数的正确与否，这就是业务逻辑的一部分；我们需要在参数正确的情况下，做进一步的数据读取和处理，这也是业务逻辑的一部分。Model中有业务逻辑吗？也有。比如，我们需要根据Controller的需要，去存储数据，去读取数据。<br>
+</code></pre><h3 id="MVC框架存在的意义">MVC框架存在的意义</h3><p>现在可以用做Web开发的每种语言里都提供了很多MVC框架，像Java中的Struts2、Spring MVC，PHP中的Yii、ThinkPHP、YAF、Phalcon等等。大大提高了Web开发的效率，增强了Web开发的规范。但是，框架的存在并不仅仅是用来提高开发效率的。反过来说，想要提高开发效率，也不应该仅仅依赖于框架本身，更应该依赖使用框架的人对软件复用的理解和应用。</p>
+<p>框架也是基于<strong>软件复用</strong>这一目的而产生的。</p>
+<h3 id="C_和_M_到底该扮演什么角色">C 和 M 到底该扮演什么角色</h3><h4 id="业务逻辑在哪里">业务逻辑在哪里</h4><p>多个功能的集合组成了一个Web/移动应用，我们的业务逻辑就分散在一个个功能上面。Controller里有业务逻辑吗？有。比如，我们需要在Controller里检查参数的正确与否，这就是业务逻辑的一部分；我们需要在参数正确的情况下，做进一步的数据读取和处理，这也是业务逻辑的一部分。Model中有业务逻辑吗？也有。比如，我们需要根据Controller的调用，去存储、读取数据。<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/08/22/说说我们的MVC/" rel="contents">
               阅读全文 &raquo;
