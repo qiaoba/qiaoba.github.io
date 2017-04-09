@@ -1,0 +1,619 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="写在前面
+程序员在工作一段时间后，难免会遇到迷茫期。是该集中精力钻研某个方向，还是先广后深？做业务太多，没有成就感，技术能力没有提升？纯做技术，不了解业务，没有成就感？年龄大了却还在coding，头发又少了许多，干不动了，可刚毕业的小孩儿们却冲劲儿十足，深感压力山大？下面这篇文章是一个40岁的程序员写的，并不能回到上面的问题，但可以给迷茫中的你我一些启发。文章的原文链接是reflections o">
+<meta property="og:type" content="article">
+<meta property="og:title" content="迷茫时看一看一个“老”程序员的思考">
+<meta property="og:url" content="http://yoursite.com/2017/04/09/一个“老”程序员的思考/index.html">
+<meta property="og:site_name" content="qb's blabla ......">
+<meta property="og:description" content="写在前面
+程序员在工作一段时间后，难免会遇到迷茫期。是该集中精力钻研某个方向，还是先广后深？做业务太多，没有成就感，技术能力没有提升？纯做技术，不了解业务，没有成就感？年龄大了却还在coding，头发又少了许多，干不动了，可刚毕业的小孩儿们却冲劲儿十足，深感压力山大？下面这篇文章是一个40岁的程序员写的，并不能回到上面的问题，但可以给迷茫中的你我一些启发。文章的原文链接是reflections o">
+<meta property="og:image" content="http://yoursite.com/images/oldprog.png">
+<meta property="og:updated_time" content="2017-04-09T14:37:35.927Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="迷茫时看一看一个“老”程序员的思考">
+<meta name="twitter:description" content="写在前面
+程序员在工作一段时间后，难免会遇到迷茫期。是该集中精力钻研某个方向，还是先广后深？做业务太多，没有成就感，技术能力没有提升？纯做技术，不了解业务，没有成就感？年龄大了却还在coding，头发又少了许多，干不动了，可刚毕业的小孩儿们却冲劲儿十足，深感压力山大？下面这篇文章是一个40岁的程序员写的，并不能回到上面的问题，但可以给迷茫中的你我一些启发。文章的原文链接是reflections o">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 迷茫时看一看一个“老”程序员的思考 | qb's blabla ...... </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?938b2af2602dc09ba190b3c8663db50a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">qb's blabla ......</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                迷茫时看一看一个“老”程序员的思考
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-04-09T00:00:00+08:00" content="2017-04-09">
+              2017-04-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/杂念/" itemprop="url" rel="index">
+                    <span itemprop="name">杂念</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="写在前面">写在前面</h3><blockquote>
+<p>程序员在工作一段时间后，难免会遇到迷茫期。是该集中精力钻研某个方向，还是先广后深？做业务太多，没有成就感，技术能力没有提升？纯做技术，不了解业务，没有成就感？年龄大了却还在coding，头发又少了许多，干不动了，可刚毕业的小孩儿们却冲劲儿十足，深感压力山大？下面这篇文章是一个40岁的程序员写的，并不能回到上面的问题，但可以给迷茫中的你我一些启发。文章的原文链接是<a href="http://www.bennorthrop.com/Essays/2016/reflections-of-an-old-programmer.php?utm_source=wanqu.co&amp;utm_campaign=Wanqu+Daily&amp;utm_medium=social" target="_blank" rel="external">reflections of an old programmer</a>，作者是Ben Northrop。</p>
+</blockquote>
+<p>我是一个快40岁的程序员。周六上午，老婆在家带孩子，我去参加了一个关于React Native的技术会议。演讲嘉宾分享的内容是为什么React Native会成为移动开发的下一个热点，这让我想到了15年前的JSP热。看着PPT上充满逻辑的代码，我感觉自己“老”了，我发现自己可能被这个时代甩在了后面。</p>
+<p>演讲嘉宾优雅的滑动着PPT，现场用React Native写着令人眼花缭乱的代码，说了一大堆我听不懂的技术名词。什么是Pepperoni（烤胡椒香肠），这是在逗我吗？什么是……这尼玛让一个刚刚学会如何使用Angular的中年大叔情何以堪！？看来我又得重新开始了。</p>
+<p>当然，我对此一点也不感到惊讶。过去的20年里，我也近乎疯狂的追赶着各种时髦的技术，并且乐在其中。任何一则新的关于在编程方面有突破性进展的消息都会令人兴奋不已——作为编程社区的革新者，拥护并推广一个更简单、高效、简洁、优雅的新技术，是一件多么美妙的事情。但是，就在这个上午，将近40岁的我却有一种要被耗尽的感觉。我知道，这是工作的一部分。虽然有些知识是那么的难以吸收和理解，但是，如果想要保持自己的竞争力、得到更好的薪水，就不得不从这些令人生厌的技术里杀出一条血路来。这，就是生活。</p>
+<p>我思索着，我发现我这种典型的程序员职业轨迹好像并不适用于其它行业。一个40岁的心脑血管医生并不会因为医学界新出的几篇组织论文而觉得自己的知识过时，同样的道理，这也适用于律师、水管工人、会计、英语老师等。尽管从事这些职业会有一些不可预期的因素存在，但是人们已经积累的知识是相对稳定的，这足以让他们获得越来越多的尊重和理解。遗憾的是，对于程序员来说，20年的经验并不能换来同样多的优势。</p>
+<h3 id="两个主要原因">两个主要原因</h3><p>当然，我们这个职业并不都是如此不堪，毕竟作为程序员的我们还有很多有趣的事情。但有意思的是，好像只有程序员们才需要频繁地更新自己的知识，这样才能紧跟时代的步伐。我的观点正确吗？在这一点上，编程真的与众不同吗？若果真如此，原因是什么？这对于我们的职业生涯来说意味着什么？我试着从两方面回答这些问题。</p>
+<p>第一点就是知识的衰减。</p>
+<p>其实不仅仅是编程，任何事情都有一个过期时间，最终变得毫无用处。我16岁学开车，当时所学的技能也沿用至今。我们可以说这种知识有一个较长的生命周期。对于很多职业来说，它们的专业知识也有一个相对长的生命周期。医学方面的新发现的确能够替代一些现有的医疗方式，但这并不足以颠覆我们对生物学医学的原有认知。如果一种知识的生命周期如此之长，那么这样的知识就是可累积的。医生会比去年的自己拥有更加渊博的医学知识，因为他在过去的一年里学到的东西都会累加在他之前的知识之上。</p>
+<p>而在编程领域，暂且不论好坏，我敢说事情不是这样的。我可以向上帝保证：一个程序员的知识在10年之后将会有一半变得毫无用处。</p>
+<p>读到这里，你也许会认为我这个观点错得离谱，你甚至想要离开。别着急，如果你试着读完接下来的内容，你会发现我是对的。</p>
+<p>如果我没有从这个点上得到进一步的结论，那么，我敢打赌到了2026年我现在的知识大约只会剩下一半还有用武之地（这其中当然会包括经久不衰的SQL），而另一半则会消失的无影无踪（React Native会消失吗？我觉得可能会吧）。当然，我会学习新的知识来替代旧的。但是，这样就够了吗？到了2026年，我会比现在拥有更多有用的知识吗？</p>
+<p>这个问题促使我得出了第二个点：知识积累速度，即我们在知识库中添加新知识的速度。在所有领域里，对知识的掌握程度都有一个入门的标准（或者至少能够达到工作的要求），因此一个人在职业生涯的早期更需要集中精力去掌握这些知识。而在编程领域，我们却好像一直都处在“学生”时代，因为这个领域的知识更新太快了。想要跟上节奏，就要不断学习。这也让我们的职业生涯与众不同。</p>
+<h3 id="三个阶段">三个阶段</h3><p>结合上面所说的知识衰减和积累速度，如果要用一张图来表示程序员的知识水平和职业生涯之间的关系，那么下面这张图再合适不过了：<br><img src="/images/oldprog.png" alt="Alt"><br>在职业生涯的早期，也就是我们所谓的学徒时期，积累知识是相对容易的。所有事情都是新的，每一次经历都能够获取更多的知识。另外，我们很年轻，不会被太多的生活琐碎所累，因此也不会介意多花几个晚上或周末去学习新的编程语言或框架。最重要的一点是，雇主不会对我们这些刚刚参加工作的菜鸟有太高的期望。因此，工作时我们会比其它同事有更多的时间来学习知识。这是一个有意思的阶段，这个阶段的我们总会觉得自己有太多的东西都不懂。</p>
+<p>直到有一天，我们发现自己不再是新手，我们变成了卓有成效的、能够独立完成任务的开发工程师。我们第一次发现自己与那些工作几年甚至十年的高级工程师之间的差距好像并没有原来想象的那么大。这让我们信心倍增，充满激情和活力。这就是所谓的功力大增的阶段。之前的投入终于有了回报，我们学过的所有知识都显得那么有用。换言之，这些知识都没有进入明显的衰减期。我们的成长赢得了客户、同事、经理们的尊重，我们也因此获得了更高的职位和薪水、更好的机会。尽管我们不一定明白这一点，但这是一个重要的转折点。</p>
+<p>这个时候我们会发现，晋升不仅带来了工资的增长，也带来了别人对你更高的期望。雇主需要优秀员工成为领导，需要他们指导初级工程师、检查代码、面试、参加会议，并且在大多数情况下要负责维护那些他们曾经帮助搭建的复杂的遗留系统。所有的这一切都是非常合理的，但这也恰恰牺牲了我们的知识积累速度。我们也不会像之前那样有很多时间去阅读技术博客了。我们还会发现，自己的知识正在变得陈旧不堪，工作前几年学的那些东西现在竟然全TM过时了。你会说”我TM之前可是花了大量的时间去学习GWT啊！”面对知识衰减、积累速度变慢，我们开始迷茫了。</p>
+<p>这个时候，我们也进入了第三和最后的阶段，也就是稳定的经验丰富的编程老兵的消与涨。我们知识全面、经验丰富并且卓有成效。但我们也认识到自己可能比上一个工作阶段知道的要少。我们的知识有很多已经过时了，我们也没有时间去积累足够多的新知识来做补充。这是一件令人无比沮丧的事情。我想这也是那么多程序员在这个阶段转做管理、销售、测试、或者农业（比如我）的原因吧。除非我们竭尽全力保持自己的技术水平，否则，5年之后我们会在工作中表现得更糟糕。除了努力，没有任何捷径。</p>
+<h3 id="小小建议">小小建议</h3><p>这就是我写本文的目的。我现在仍然喜欢学习，但是我深知，如果没有艰苦卓绝的努力，我就只能徘徊在“专家”的边缘地带停滞不前。不过我对此并不是特别地在意，因为相比于成为下一个Martin Flower, 我更愿意去享受生活，虽然我也相信Martin Flower在工作之外过得很幸福。不过话说回来，从知识的积累和衰减这两方面思考我的职业，的确在一定程度上改变了我的思维方式。</p>
+<p>首先，我试着从更长远的角度来看待问题。我其实更担心成为那种背负着极高的期待但又不太可能接触新机会的职场角色。我见过太多这样的例子，在一个公司里拿着高薪，却很少有机会去接触和学习新的知识。5年后，这些人将会发现他们的大部分知识已经过时，他们的薪水也体现不出自己的真正价值。从某种意义上讲，我认为如果有一个好的公司能够给你提供接触和学习新知识的机会，那就不必太在意眼前的薪水高低，因为从长远的职业生涯来看，你这样做会赚取更多的薪水。</p>
+<p>其次，人生苦短，我会把更多的精力和时间投入到那些更加持久的技术知识上面，比如算法、应用安全、性能优化和架构等。我希望通过深入这些领域来保持自己在职场上的竞争力，而不是去学习那些最新、最炫的javascrip库。</p>
+<p>在这里我可能并没有得出一个新的观点。但是从知识的积累和衰减这两个方面来考虑我的职业生涯的确让我受益匪浅。我也想听听你的看法。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/21/心静如水方能接纳万物/" rel="next" title="心静如水方能挥洒自如">
+                <i class="fa fa-chevron-left"></i> 心静如水方能挥洒自如
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpeg"
+               alt="qb" />
+          <p class="site-author-name" itemprop="name">qb</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两个主要原因"><span class="nav-number">2.</span> <span class="nav-text">两个主要原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三个阶段"><span class="nav-number">3.</span> <span class="nav-text">三个阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小小建议"><span class="nav-number">4.</span> <span class="nav-text">小小建议</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qb</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
